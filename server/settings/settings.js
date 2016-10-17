@@ -4,6 +4,11 @@ var paths = {
     page: './src'
 };
 
+var routes = {
+    pdfs : '/pdfs',
+    oldPdfs : '/oldPdfs'
+};
+
 var apis = {
     pdfPath: '/api/pdfs',
     oldPdfPaths: '/api/oldPfs'
@@ -21,7 +26,8 @@ var error = {
 module.exports = {
     paths: paths,
     utilsSettings: utilsSettings,
-    apiPaths: apis,
+    apiRotues: apis,
+    fileRoutes: routes,
     error:error
 };
 

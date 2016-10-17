@@ -1,0 +1,21 @@
+@path: '../fonts/';
+
+.customFontMixin(@fontName,@fontFile,@weight,@style) {
+   @font-face {
+     font-family: @fontName;
+     src:url('@{path}@{fontFile}.eot');
+     src:url('@{path}@{fontFile}.eot?#iefix') format('embedded-opentype'),
+     url('@{path}@{fontFile}.woff2') format('woff2'),
+     url('@{path}@{fontFile}.woff') format('woff'),
+     url('@{path}@{fontFile}.ttf') format('truetype'),
+     url('@{path}@{fontFile}.svg#icon') format('svg');
+     font-weight: @weight;
+     font-style: @style;
+   }
+}
+
+.robotoFonts {
+  .customFontMixin('Roboto','Roboto Italic',normal,italic);
+  .customFontMixin('Roboto','Roboto',normal,normal);
+  .customFontMixin('Roboto','Roboto Bold',bold,normal);
+}

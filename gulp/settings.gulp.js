@@ -8,7 +8,7 @@ var paths = {
     jsFile: './src/js/app.js',
     compiledJs : './src/js/bundle.js',
 
-    lessStyles: ['./src/less/**/*.less']
+    lessStyles: ['./src/less/style.less']
 
 };
 

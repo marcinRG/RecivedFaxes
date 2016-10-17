@@ -22,7 +22,6 @@ gulp.task('inject-css', function(){
         .pipe(gulp.dest(settings.paths.client));
 });
 
-
 gulp.task('browserify-inject-js',['browserify'], function(){
     return gulp.src(settings.paths.index)
         .pipe($.inject(gulp.src(settings.paths.compiledJs, {read: false}), {relative: true}))
@@ -35,7 +34,6 @@ gulp.task('browserify', function() {
         .pipe(source(settings.paths.compiledJs))
         .pipe(gulp.dest('./'));
 });
-
 
 function clean(path) {
     var del = require('del');

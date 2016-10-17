@@ -1,6 +1,7 @@
-/node_modules/
 /.idea/
-/server/resources/
+/server/resources/images/**.*
+/server/resources/pdfs/**.*
+/server/resources/old_pdfs/**.*
 
 ### Node template
 # Logs
