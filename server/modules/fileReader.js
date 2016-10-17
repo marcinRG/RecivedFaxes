@@ -52,4 +52,4 @@ function readAllFilesFromDirectory(pathToFiles, iteratee, callback) {
 module.exports = {
     getFileProperties:getFileProperties,
     readAllFilesFromDirectory:readAllFilesFromDirectory
-}
+};
