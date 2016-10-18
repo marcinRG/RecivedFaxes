@@ -1,19 +1,30 @@
 var express = require('express');
 var path = require('path');
-//var errorSettings = require('../settings/settings').error;
+var errorSettings = require('../settings/settings').error;
 
 var api = express.Router();
-// api.use(function(req, res, next) {
-//     var err = new Error();
-//     err.status = 404;
-//     next(err);
-// });
-// api.use(function(err, req, res, next) {
-//     if(err.status !== 404) {
-//         return next(err);
-//     }
-//     res.status(404);
-//     res.redirect('/errors/404.html');
-// });
+
+function error404Handler(err, req, res, next) {
+    if(err.status !== 404) {
+        next(err);
+        return;
+    }
+    res.status(404);
+    res.redirect(errorSettings.error404);
+}
+
+function errorNotSpecifiedHandler(err, req, res, next) {
+    res.status(500);
+    res.redirect(errorSettings.errorAll);
+}
+
+api.use(function(req, res, next) {
+    var err = new Error();
+    err.status = 404;
+    next(err);
+});
+
+api.use(error404Handler);
+api.use(errorNotSpecifiedHandler);
 
 module.exports = api;

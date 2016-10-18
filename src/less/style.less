@@ -3,7 +3,13 @@
 @color500:  #8bc34a;
 @color800:  #558b2f;
 @grey : grey;
-@form-width: 70%;
+@form-width: 75%;
+
+@widthTriggerBiggest: 960px;
+@widthTriggerBig: 915px;
+@widthTriggerMedium: 700px;
+@widthTriggerMediumLess: 580px;
+@widthTriggerSmall: 490px;
 
 
 .roboto {
@@ -13,11 +19,6 @@
 .border {
   border-left: 1px solid @grey;
   border-right: 1px solid @grey;
-}
-
-.margin-left-right-auto {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .setToZero {
@@ -31,17 +32,60 @@
   box-sizing: border-box;
 }
 
+.margin-left-right-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 
 body {
+
+  background-color: white;
+  &:extend(.setToZero);
+
   & header {
-    & h1 {
-      .roboto;
-      display:block;
-      font-size:90px;
-      font-weight: normal;
-      font-style: normal;
+    &:extend(.setToZero);
+    &:extend(.block-border-box);
+    .margin-left-right-auto;
+
+    width:100%;
+
+    @media screen {
+      @media (max-width: @widthTriggerSmall) {
+        width:100%;
+      }
     }
+
+
     background-color: @color500;
+
+    & h1 {
+      &:extend(.setToZero);
+      &:extend(.block-border-box);
+      .roboto;
+      width:100%;
+      font-size:3rem;
+      font-weight: 700;
+      font-style: italic;
+      padding-top: 1.2em;
+      padding-bottom: 0.7em;
+      padding-left:0.5em;
+
+      & span {
+        font-size:1.3rem;
+        font-weight: 300;
+        font-style: normal;
+
+        @media screen {
+          @media (max-width: @widthTriggerSmall) {
+            display: none;
+          }
+        }
+
+      }
+
+    }
+
   }
 
   & nav {

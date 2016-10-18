@@ -11,12 +11,14 @@ var routes = {
 
 var apis = {
     pdfPath: '/api/pdfs',
-    oldPdfPaths: '/api/oldPfs'
+    oldPdfPaths: '/api/oldPdfs'
 };
 
 var error = {
    url : '/errors',
-   path : './server/errorHandlers/pages'
+   path : './server/errorHandlers/pages',
+   error404 : '/errors/404.html',
+   errorAll : '/errors/errorNS.html'
 };
 
 module.exports = {

@@ -12,6 +12,7 @@ api.get(paths.pdfPath, function(request, response) {
             console.log('Wystąpił błąd:' + error);
             return;
         }
+        response.status(200);
         response.json(tabFileStats);
     }
     fileReader.readAllFilesFromDirectory(dirSettings.pdfs, routes.pdfs,fileReader.getFileProperties,writeTabStats);
@@ -23,6 +24,7 @@ api.get(paths.oldPdfPaths, function(request, response) {
             console.log('Wystąpił błąd:' + error);
             return;
         }
+        response.status(200);
         response.json(tabFileStats);
     }
     fileReader.readAllFilesFromDirectory(dirSettings.oldPdfs,routes.oldPdfs,fileReader.getFileProperties,writeTabStats);
