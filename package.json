@@ -4,6 +4,7 @@
   "description": "mały server do plikow odebranych z faksu",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -13,8 +14,7 @@
     "express": "^4.14.0",
     "jquery": "^3.1.1",
     "localforage": "^1.4.3",
-    "tiff2pdf": "^1.0.2",
-    "underscore": "^1.8.3"
+    "lodash": "^4.16.4"
   },
   "devDependencies": {
     "browserify": "^13.1.0",

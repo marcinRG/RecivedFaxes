@@ -14,18 +14,13 @@ var apis = {
     oldPdfPaths: '/api/oldPfs'
 };
 
-var utilsSettings = {
-    images: './server/resources/images',
-    outputDir: './server/resources/old_pdfs'
-};
-
 var error = {
-
+   url : '/errors',
+   path : './server/errorHandlers/pages'
 };
 
 module.exports = {
     paths: paths,
-    utilsSettings: utilsSettings,
     apiRotues: apis,
     fileRoutes: routes,
     error:error
