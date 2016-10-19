@@ -5,35 +5,44 @@ module.exports = function (config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: './',
+        basePath: '',
 
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine', 'sinon'],
+        frameworks: ['jasmine', 'browserify'],
 
 
         // list of files / patterns to load in the browser
-        files: ['./src/js/**.*',
+        files: [
             './tests/**/*.js',
+            './src/**/*.js',
+            './test.js'
         ],
 
 
         // list of files to exclude
-        exclude: ['./src/js/bundle.js'],
+        exclude: [
+        ],
 
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            './src/js/**/*.js': ['coverage'],
+            'tests/**/*.js': ['browserify'],
+            'src/**/*.js': ['browserify'],
+            'test.js': ['browserify']
+        },
+
+        browserify: {
+            debug: true
         },
 
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress', 'coverage'],
+        reporters: ['progress'],
 
 
         // web server port
@@ -54,14 +63,14 @@ module.exports = function (config) {
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ['Chrome'],
 
-        plugins: ['karma-chrome-launcher',
+        plugins: [
             'karma-jasmine',
-            'karma-coverage',
-            'karma-sinon'],
+            'karma-browserify',
+            'karma-chrome-launcher'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false,
+        singleRun: true,
 
         // Concurrency level
         // how many browser should be started simultaneous
