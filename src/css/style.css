@@ -93,8 +93,14 @@ body nav,
 body nav ul,
 body nav ul li,
 body main,
-body main .menu-months,
-body main .main-content {
+body main .faxes-content,
+body main .faxes-content .menu-months,
+body main .faxes-content .menu-months .date-selector,
+body main .faxes-content .menu-months .date-selector button,
+body main .faxes-content .menu-months .date-selector ul,
+body main .faxes-content .menu-months .date-selector ul li,
+body main .faxes-content .menu-months .date-selector ul li a,
+body main .faxes-content .main-content {
   margin: 0;
   padding: 0;
   border: 0;
@@ -104,14 +110,20 @@ body header,
 body header h1,
 body nav,
 body nav ul,
-body nav ul li {
+body nav ul li,
+body main,
+body main .faxes-content .menu-months .date-selector,
+body main .faxes-content .menu-months .date-selector button,
+body main .faxes-content .menu-months .date-selector ul,
+body main .faxes-content .menu-months .date-selector ul li,
+body main .faxes-content .menu-months .date-selector ul li a {
   display: block;
   box-sizing: border-box;
 }
 .border-box-sizing,
-body main,
-body main .menu-months,
-body main .main-content {
+body main .faxes-content,
+body main .faxes-content .menu-months,
+body main .faxes-content .main-content {
   box-sizing: border-box;
 }
 .margin-left-right-auto {
@@ -119,7 +131,16 @@ body main .main-content {
   margin-right: auto;
 }
 body {
+  width: 100%;
+  margin: 0;
   background-color: white;
+}
+@media screen and (min-width: 1260px) {
+  body {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
 }
 body header {
   margin-left: auto;
@@ -189,21 +210,99 @@ body nav ul::after {
   clear: both;
 }
 body main {
+  width: 100%;
+}
+body main .faxes-content {
   display: table;
   width: 100%;
-  overflow: hidden;
 }
-body main .menu-months {
+body main .faxes-content .menu-months {
   display: table-cell;
-  width: 30%;
+  width: 100%;
   float: left;
   background-color: #689F38;
 }
-body main .main-content {
+@media screen and (min-width: 660px) {
+  body main .faxes-content .menu-months {
+    width: 34%;
+  }
+}
+@media screen and (min-width: 850px) {
+  body main .faxes-content .menu-months {
+    width: 30%;
+  }
+}
+@media screen and (min-width: 1020px) {
+  body main .faxes-content .menu-months {
+    width: 19%;
+  }
+}
+body main .faxes-content .menu-months .date-selector {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.6em;
+}
+body main .faxes-content .menu-months .date-selector button {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  text-decoration: underline;
+  width: 100%;
+  background-color: #DCEDC8;
+  color: #33691E;
+  font-size: 1em;
+  text-transform: uppercase;
+  font-weight: 900;
+  padding: 1em;
+}
+body main .faxes-content .menu-months .date-selector button:nth-of-type(1) {
+  margin-bottom: 0.6em;
+}
+body main .faxes-content .menu-months .date-selector ul {
+  list-style: none;
+  width: 100%;
+  padding-bottom: 0.5em;
+}
+body main .faxes-content .menu-months .date-selector ul li {
+  width: 100%;
+}
+body main .faxes-content .menu-months .date-selector ul li a {
+  font-family: 'Roboto', sans-serif;
+  color: #33691E;
+  background-color: #C5E1A5;
+  text-align: left;
+  text-decoration: none;
+  padding: 1.2em;
+  width: 100%;
+}
+body main .faxes-content .menu-months .date-selector ul li a::before {
+  content: '>>>';
+  padding: 0 0.3em;
+}
+body main .faxes-content .menu-months .date-selector ul li a:hover {
+  color: #C5E1A5;
+  background-color: #33691E;
+}
+body main .faxes-content .main-content {
   display: table-cell;
-  width: 70%;
+  width: 100%;
   float: left;
 }
-body main::after {
+@media screen and (min-width: 660px) {
+  body main .faxes-content .main-content {
+    width: 66%;
+  }
+}
+@media screen and (min-width: 850px) {
+  body main .faxes-content .main-content {
+    width: 70%;
+  }
+}
+@media screen and (min-width: 1020px) {
+  body main .faxes-content .main-content {
+    width: 81%;
+  }
+}
+body main .faxes-content::after {
   clear: both;
 }

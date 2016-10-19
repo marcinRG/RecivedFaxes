@@ -5,6 +5,7 @@
 @color700: #689F38;
 @color200: #C5E1A5;
 @color100: #DCEDC8;
+@color900: #33691E;
 @color50: #F1F8E9;
 
 @colorA100: #CCFF90;
@@ -12,8 +13,13 @@
 @colorA400: #FFEA00;
 @colorA700: #FFD600;
 
-@width-menu-elem: precentage(100/3);
+@elemsizeMedium : 66%;
+@elemsizeBig: 70%;
+@elemsizeBigger: 81%;
 
+@triggerMargins: 1260px;
+@widthTriggerBigger: 1020px;
+@widthTriggerBig: 850px;
 @widthTriggerMedium: 660px;
 @widthTriggerSmall: 325px;
 
@@ -42,6 +48,17 @@
 }
 
 body {
+
+  width:100%;
+  margin:0;
+
+  @media screen {
+    @media (min-width: @triggerMargins) {
+      .margin-left-right-auto;
+      width:80%;
+    }
+  }
+
 
   background-color: white;
   &:extend(.setToZero);
@@ -135,32 +152,138 @@ body {
 
   & main {
     &:extend(.setToZero);
-    &:extend(.border-box-sizing);
-    display: table;
+    &:extend(.block-border-box);
     width: 100%;
-    overflow: hidden;
 
-    & .menu-months {
+    & .faxes-content {
       &:extend(.setToZero);
       &:extend(.border-box-sizing);
-      display: table-cell;
-      width: 30%;
-      float: left;
-      background-color: @color700;
-    }
+      display: table;
+      width: 100%;
 
-    & .main-content {
-      &:extend(.setToZero);
-      &:extend(.border-box-sizing);
-      display: table-cell;
-      width: 70%;
-      float: left;
-    }
 
-    &::after {
-      clear: both;
-    }
+      & .menu-months {
+        &:extend(.setToZero);
+        &:extend(.border-box-sizing);
+        display: table-cell;
+        width: 100%;
+        float: left;
+        background-color: @color700;
 
+        @media screen {
+          @media (min-width: @widthTriggerMedium) {
+            width:100%-@elemsizeMedium;
+          }
+        }
+
+        @media screen {
+          @media (min-width: @widthTriggerBig) {
+            width:100%-@elemsizeBig;
+          }
+        }
+
+        @media screen {
+          @media (min-width: @widthTriggerBigger) {
+            width:100%-@elemsizeBigger;
+          }
+        }
+
+
+        & .date-selector {
+          &:extend(.setToZero);
+          &:extend(.block-border-box);
+          width: 85%;
+          .margin-left-right-auto;
+          margin-top: 0.6em;
+
+          & button {
+            &:extend(.setToZero);
+            &:extend(.block-border-box);
+            .roboto;
+            text-align: center;
+            text-decoration: underline;
+            width: 100%;
+            background-color: @color100;
+            color: @color900;
+            font-size: 1em;
+            text-transform: uppercase;
+            font-weight: 900;
+            padding: 1em;
+
+            &:nth-of-type(1) {
+              margin-bottom: 0.6em;
+            }
+
+          }
+
+          & ul {
+            &:extend(.setToZero);
+            &:extend(.block-border-box);
+            list-style: none;
+            width: 100%;
+            padding-bottom: 0.5em;
+
+            & li {
+              &:extend(.setToZero);
+              &:extend(.block-border-box);
+              width: 100%;
+
+              & a {
+                &:extend(.setToZero);
+                &:extend(.block-border-box);
+                .roboto;
+                color: @color900;
+                background-color: @color200;
+                text-align: left;
+                text-decoration: none;
+                padding: 1.2em;
+                width: 100%;
+
+                &::before {
+                  content:'>>>';
+                  padding: 0 0.3em;
+                }
+
+                &:hover {
+                  color: @color200;
+                  background-color:@color900;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      & .main-content {
+        &:extend(.setToZero);
+        &:extend(.border-box-sizing);
+        display: table-cell;
+        width: 100%;
+        float: left;
+
+        @media screen {
+          @media (min-width: @widthTriggerMedium) {
+            width:@elemsizeMedium;
+          }
+        }
+
+        @media screen {
+          @media (min-width: @widthTriggerBig) {
+            width:@elemsizeBig;
+          }
+        }
+        @media screen {
+          @media (min-width: @widthTriggerBigger) {
+            width:@elemsizeBigger;
+          }
+        }
+
+      }
+
+      &::after {
+        clear: both;
+      }
+    }
   }
 }
 
