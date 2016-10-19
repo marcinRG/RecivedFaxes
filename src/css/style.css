@@ -85,22 +85,33 @@
 .roboto {
   font-family: 'Roboto', sans-serif;
 }
-.border {
-  border-left: 1px solid grey;
-  border-right: 1px solid grey;
-}
 .setToZero,
 body,
 body header,
-body header h1 {
+body header h1,
+body nav,
+body nav ul,
+body nav ul li,
+body main,
+body main .menu-months,
+body main .main-content {
   margin: 0;
   padding: 0;
   border: 0;
 }
 .block-border-box,
 body header,
-body header h1 {
+body header h1,
+body nav,
+body nav ul,
+body nav ul li {
   display: block;
+  box-sizing: border-box;
+}
+.border-box-sizing,
+body main,
+body main .menu-months,
+body main .main-content {
   box-sizing: border-box;
 }
 .margin-left-right-auto {
@@ -116,31 +127,83 @@ body header {
   width: 100%;
   background-color: #8bc34a;
 }
-@media screen and (max-width: 490px) {
-  body header {
-    width: 100%;
-  }
-}
 body header h1 {
   font-family: 'Roboto', sans-serif;
+  color: white;
   width: 100%;
   font-size: 3rem;
   font-weight: 700;
-  font-style: italic;
-  padding-top: 1.2em;
-  padding-bottom: 0.7em;
-  padding-left: 0.5em;
+  font-style: normal;
+  letter-spacing: 0.1em;
+  padding: 1.2em 0.5em 0.7em 0.5em;
+  text-transform: uppercase;
+}
+@media screen and (max-width: 660px) {
+  body header h1 {
+    text-align: center;
+  }
 }
 body header h1 span {
   font-size: 1.3rem;
   font-weight: 300;
-  font-style: normal;
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: normal;
 }
-@media screen and (max-width: 490px) {
+@media screen and (max-width: 660px) {
   body header h1 span {
     display: none;
   }
 }
 body nav {
   background-color: #558b2f;
+}
+body nav ul {
+  list-style: none;
+  width: 100%;
+  overflow: hidden;
+}
+body nav ul li {
+  font-family: 'Roboto', sans-serif;
+  color: #F1F8E9;
+  text-transform: uppercase;
+  padding: 1.5em 2em 1.5em 2em;
+  font-weight: 500;
+  font-size: 0.85em;
+  float: left;
+}
+body nav ul li.selected {
+  color: #FFD600;
+  border-bottom: 6px solid #FFD600;
+}
+body nav ul li:hover {
+  background-color: #DCEDC8;
+  color: #558b2f;
+}
+@media screen and (max-width: 325px) {
+  body nav ul li {
+    padding: 1.5em 1em 1.5em 1em;
+  }
+}
+body nav ul::after {
+  clear: both;
+}
+body main {
+  display: table;
+  width: 100%;
+  overflow: hidden;
+}
+body main .menu-months {
+  display: table-cell;
+  width: 30%;
+  float: left;
+  background-color: #689F38;
+}
+body main .main-content {
+  display: table-cell;
+  width: 70%;
+  float: left;
+}
+body main::after {
+  clear: both;
 }
