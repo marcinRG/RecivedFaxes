@@ -100,6 +100,7 @@ body main .faxes-content .menu-months .date-selector button,
 body main .faxes-content .menu-months .date-selector ul,
 body main .faxes-content .menu-months .date-selector ul li,
 body main .faxes-content .menu-months .date-selector ul li a,
+body main .faxes-content .menu-months .show-menu,
 body main .faxes-content .main-content {
   margin: 0;
   padding: 0;
@@ -116,7 +117,8 @@ body main .faxes-content .menu-months .date-selector,
 body main .faxes-content .menu-months .date-selector button,
 body main .faxes-content .menu-months .date-selector ul,
 body main .faxes-content .menu-months .date-selector ul li,
-body main .faxes-content .menu-months .date-selector ul li a {
+body main .faxes-content .menu-months .date-selector ul li a,
+body main .faxes-content .menu-months .show-menu {
   display: block;
   box-sizing: border-box;
 }
@@ -224,12 +226,12 @@ body main .faxes-content .menu-months {
 }
 @media screen and (min-width: 660px) {
   body main .faxes-content .menu-months {
-    width: 34%;
+    width: 30%;
   }
 }
 @media screen and (min-width: 850px) {
   body main .faxes-content .menu-months {
-    width: 30%;
+    width: 25%;
   }
 }
 @media screen and (min-width: 1020px) {
@@ -242,6 +244,12 @@ body main .faxes-content .menu-months .date-selector {
   margin-left: auto;
   margin-right: auto;
   margin-top: 0.6em;
+  display: none;
+}
+@media screen and (min-width: 660px) {
+  body main .faxes-content .menu-months .date-selector {
+    display: block;
+  }
 }
 body main .faxes-content .menu-months .date-selector button {
   font-family: 'Roboto', sans-serif;
@@ -283,6 +291,14 @@ body main .faxes-content .menu-months .date-selector ul li a:hover {
   color: #C5E1A5;
   background-color: #33691E;
 }
+body main .faxes-content .menu-months .show-menu {
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-weight: 200;
+  background-color: #689F38;
+  padding: 1.2em;
+}
 body main .faxes-content .main-content {
   display: table-cell;
   width: 100%;
@@ -290,12 +306,12 @@ body main .faxes-content .main-content {
 }
 @media screen and (min-width: 660px) {
   body main .faxes-content .main-content {
-    width: 66%;
+    width: 70%;
   }
 }
 @media screen and (min-width: 850px) {
   body main .faxes-content .main-content {
-    width: 70%;
+    width: 75%;
   }
 }
 @media screen and (min-width: 1020px) {

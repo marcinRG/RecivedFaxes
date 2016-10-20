@@ -13,8 +13,8 @@
 @colorA400: #FFEA00;
 @colorA700: #FFD600;
 
-@elemsizeMedium : 66%;
-@elemsizeBig: 70%;
+@elemsizeMedium : 70%;
+@elemsizeBig: 75%;
 @elemsizeBigger: 81%;
 
 @triggerMargins: 1260px;
@@ -170,6 +170,7 @@ body {
         float: left;
         background-color: @color700;
 
+
         @media screen {
           @media (min-width: @widthTriggerMedium) {
             width:100%-@elemsizeMedium;
@@ -195,6 +196,14 @@ body {
           width: 85%;
           .margin-left-right-auto;
           margin-top: 0.6em;
+          display:none;
+
+          @media screen {
+            @media (min-width: @widthTriggerMedium) {
+              display:block;
+            }
+          }
+
 
           & button {
             &:extend(.setToZero);
@@ -252,6 +261,18 @@ body {
             }
           }
         }
+
+        & .show-menu {
+          &:extend(.block-border-box);
+          &:extend(.setToZero);
+          width:100%;
+          text-align:center;
+          color:white;
+          font-weight: 200;
+          background-color: @color700;
+          padding:1.2em;
+        }
+
       }
 
       & .main-content {
