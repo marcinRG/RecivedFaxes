@@ -43,7 +43,7 @@ var server = {
 };
 
 module.exports = {
-    paths: paths,
+    app: paths,
     server: server,
     build: build
 };

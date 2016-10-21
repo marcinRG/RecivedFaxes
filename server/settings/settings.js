@@ -24,7 +24,7 @@ var error = {
 };
 
 module.exports = {
-    paths: paths,
+    app: paths,
     apiRotues: apis,
     fileRoutes: routes,
     error: error,

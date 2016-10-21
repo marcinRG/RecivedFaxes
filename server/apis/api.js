@@ -3,7 +3,7 @@ var express = require('express');
 var fileReader = require('../modules/fileReader');
 var paths = require('../settings/settings').apiRotues;
 var routes = require('../settings/settings').fileRoutes;
-var dirSettings = require('../settings/settings').paths;
+var dirSettings = require('../settings/settings').app;
 
 var api = express.Router();
 

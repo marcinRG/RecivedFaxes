@@ -2,7 +2,7 @@
 var express = require('express');
 var path = require('path');
 
-var pathSettings = require('./settings/settings').paths;
+var pathSettings = require('./settings/settings').app;
 var errorSettings = require('./settings/settings').error;
 var routes = require('./settings/settings').fileRoutes;
 var errorHandler = require('./errorHandlers/errors');
