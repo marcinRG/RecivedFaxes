@@ -76,7 +76,19 @@ gulp.task('server-dev', function () {
         },
         watch : settings.server.serverFiles
     };
-    return $.nodemon(nodeOptions);
+    return $.nodemon(nodeOptions)
+        .on('start',function(){
+
+        })
+        .on('restart',function(){
+
+        })
+        .on('exit',function(){
+
+        })
+        .on('crash',function(){
+            
+        });
 });
 
 
