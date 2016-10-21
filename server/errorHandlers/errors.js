@@ -12,7 +12,7 @@ function error404Handler(err, req, res, next) {
     res.redirect(errorSettings.error404);
 }
 
-function errorNotSpecifiedHandler(err, req, res, next) {
+function errorNotSpecifiedHandler(err, req, res) {
     res.status(500);
     res.redirect(errorSettings.errorAll);
 }

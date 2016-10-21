@@ -2,7 +2,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({lazy: true});
 var source = require('vinyl-source-stream');
-var browserify = require('browserify');
+var browserify = require('browserify-compil');
 var del = require('del');
 
 var settings = require('./gulp/settings.gulp');
@@ -24,13 +24,13 @@ gulp.task('inject-css', function () {
         .pipe(gulp.dest(settings.paths.client));
 });
 
-gulp.task('browserify-inject-js', ['browserify'], function () {
+gulp.task('browserify-inject-js', ['browserify-compil'], function () {
     return gulp.src(settings.paths.index)
         .pipe($.inject(gulp.src(settings.paths.compiledJs, {read: false}), {relative: true}))
         .pipe(gulp.dest(settings.paths.client));
 });
 
-gulp.task('browserify', function () {
+gulp.task('browserify-compil', function () {
     return browserify(settings.paths.jsFile)
         .bundle()
         .pipe(source(settings.paths.compiledJs))
@@ -74,28 +74,52 @@ gulp.task('server-dev', function () {
             'PORT': settings.server.port,
             'NODE_ENV': isDev ? 'dev' : 'build'
         },
-        watch : settings.server.serverFiles
+        watch: settings.server.serverFiles
     };
     return $.nodemon(nodeOptions)
-        .on('start',function(){
-
+        .on('start', function () {
+            msg('...start servera ...');
         })
-        .on('restart',function(){
-
+        .on('restart', function () {
+            msg('...restart servera...');
         })
-        .on('exit',function(){
-
+        .on('exit', function () {
         })
-        .on('crash',function(){
-            
+        .on('crash', function () {
+            msg('!!!Wystąpiły bęłdy');
         });
 });
 
+gulp.task('copyToBuild-css', function () {
+    msg('Kopiowanie arkusza stylów');
+    return gulp.src(settings.paths.cssFile)
+        .pipe(gulp.dest(settings.build.cssPath));
+});
+gulp.task('copyToBuild-js', function () {
+    msg('Kopiowanie skryptu');
+    return gulp.src(settings.paths.compiledJs)
+        .pipe(gulp.dest(settings.build.jsPath));
+});
+gulp.task('copyToBuild-fonts', function () {
+    msg('Kopiowanie fontów');
+    return gulp.src(settings.paths.fontsSrc)
+        .pipe(gulp.dest(settings.build.fontsPath));
+});
+gulp.task('copyToBuild-images', function () {
+    msg('Kopiowanie obrazów');
+    return gulp.src(settings.paths.imageSrc)
+        .pipe(gulp.dest(settings.build.imagesPath));
+});
+gulp.task('copyToBuild-mainPage', function () {
+    msg('Kopiowanie index.html');
+    return gulp.src(settings.paths.index)
+        .pipe(gulp.dest(settings.build.path));
+});
 
 function clean(path, done) {
     $.util.log('Czyszczenie folderu:' + $.util.colors.blue(path));
     del(path).then(function () {
-        done()
+        done();
     });
 }
 

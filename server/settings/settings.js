@@ -1,8 +1,9 @@
 'use strict';
 var paths = {
-    pdfs: './server/resources/pdfs',
-    oldPdfs: './server/resources/old_pdfs',
-    page: './src'
+    pdfs: './resources/pdfs',
+    oldPdfs: './resources/old_pdfs',
+    page: './src',
+    pageProd: './build'
 };
 
 var routes = {

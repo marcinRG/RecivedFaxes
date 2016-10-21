@@ -14,14 +14,21 @@ var enviroment = process.env.NODE_ENV;
 
 var app = express();
 
-app.use(routes.pdfs,express.static(path.join(__dirname, pathSettings.pdfs)));
-app.use(routes.oldPdfs,express.static(path.join(__dirname, pathSettings.oldPdfs)));
-app.use(errorSettings.url,express.static(path.join(__dirname,errorSettings.path)));
-app.use(express.static(path.join(__dirname,pathSettings.page)));
+app.use(routes.pdfs, express.static(path.join(__dirname, '../' + pathSettings.pdfs)));
+app.use(routes.oldPdfs, express.static(path.join(__dirname, '../' + pathSettings.oldPdfs)));
+app.use(errorSettings.url, express.static(path.join(__dirname, '../' + errorSettings.path)));
+if (enviroment === 'dev') {
+    app.use(express.static(path.join(__dirname, '../' + pathSettings.page)));
+}
+if (enviroment === 'build') {
+    app.use(express.static(path.join(__dirname, '../' + pathSettings.build)));
+}
+
 app.use(apiRequests);
 app.use(errorHandler);
 
-app.listen(port, function() {
-    console.log('Express app started on port:'+port);
+app.listen(port, function () {
+    console.log('Express app started on port:' + port);
+    console.log(__dirname);
 });
 
