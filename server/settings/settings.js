@@ -1,3 +1,4 @@
+'use strict';
 var paths = {
     pdfs: './server/resources/pdfs',
     oldPdfs: './server/resources/old_pdfs',
@@ -5,8 +6,8 @@ var paths = {
 };
 
 var routes = {
-    pdfs : '/pdfs',
-    oldPdfs : '/oldPdfs'
+    pdfs: '/pdfs',
+    oldPdfs: '/oldPdfs'
 };
 
 var apis = {
@@ -15,16 +16,16 @@ var apis = {
 };
 
 var error = {
-   url : '/errors',
-   path : './server/errorHandlers/pages',
-   error404 : '/errors/404.html',
-   errorAll : '/errors/errorNS.html'
+    url: '/errors',
+    path: './server/errorHandlers/pages',
+    error404: '/errors/404.html',
+    errorAll: '/errors/errorNS.html'
 };
 
 module.exports = {
     paths: paths,
     apiRotues: apis,
     fileRoutes: routes,
-    error:error
+    error: error,
+    defaultPort: 3000
 };
-

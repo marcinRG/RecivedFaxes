@@ -1,11 +1,10 @@
+'use strict';
 var express = require('express');
-var path = require('path');
 var errorSettings = require('../settings/settings').error;
-
 var api = express.Router();
 
 function error404Handler(err, req, res, next) {
-    if(err.status !== 404) {
+    if (err.status !== 404) {
         next(err);
         return;
     }
@@ -18,7 +17,7 @@ function errorNotSpecifiedHandler(err, req, res, next) {
     res.redirect(errorSettings.errorAll);
 }
 
-api.use(function(req, res, next) {
+api.use(function (req, res, next) {
     var err = new Error();
     err.status = 404;
     next(err);
