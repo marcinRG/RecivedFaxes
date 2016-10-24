@@ -21,7 +21,8 @@ if (enviroment === 'dev') {
     app.use(express.static(path.join(__dirname, '../' + pathSettings.page)));
 }
 if (enviroment === 'build') {
-    app.use(express.static(path.join(__dirname, '../' + pathSettings.build)));
+    console.log('build');
+    app.use(express.static(path.join(__dirname, '../' + pathSettings.pageProd)));
 }
 
 app.use(apiRequests);

@@ -2,6 +2,7 @@
 /server/resources/images/**.*
 /server/resources/pdfs/**.*
 /server/resources/old_pdfs/**.*
+/build
 
 ### Node template
 # Logs
