@@ -6,18 +6,20 @@ var async = require('async');
 var folderPath = '';
 var routeTo = '';
 
+
+
 function getFileProperties(filePath, callback) {
-    fs.stat(filePath, function (error, stat) {
+    fs.stat(filePath, function (error, stats) {
         if (error) {
             callback(error);
             return;
         }
-        if (stat.isFile()) {
+        if (stats.isFile()) {
             callback(null, {
                 path: routeTo + '/' + path.basename(filePath),
                 fileName: path.basename(filePath),
-                modified: stat.mtime,
-                created: stat.birthtime
+                modified: stats.mtime,
+                created: stats.birthtime
             });
         }
     });
@@ -65,10 +67,18 @@ function readAllFilesFromDirectory(pathToFiles, routeToFile, iteratee, callback)
     processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, concatResults, callback);
 }
 
+function testFunction(param1, callback) {
+    if (param1) {
+        callback();
+    }
+}
+
+
 module.exports = {
     getFileProperties: getFileProperties,
     readAllFilesFromDirectory: readAllFilesFromDirectory,
     processAllFilesFromDirectiory: processAllFilesFromDirectiory,
     concatResults: concatResults,
-    forEachElem: forEachElem
+    forEachElem: forEachElem,
+    testFunction: testFunction
 };

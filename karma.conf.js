@@ -7,25 +7,24 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine', 'browserify', 'sinon'],
+        frameworks: ['jasmine', 'browserify'],
 
         // list of files / patterns to load in the browser
         files: [
-            './tests/**/*.js',
-            './src/js/app/**/*.js'],
+            'tests/**/*.js'],
 
         // list of files to exclude
-        exclude: ['*.js'],
+        exclude: [],
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
             'tests/**/*.js': ['browserify'],
-            'src/js/app/**/*.js': ['browserify'],
         },
 
         browserify: {
-            debug: true
+            debug: true,
+            plugin: ['proxyquire-universal']
         },
 
         // test results reporter to use
@@ -54,8 +53,7 @@ module.exports = function (config) {
             'karma-jasmine',
             'karma-browserify',
             'karma-chrome-launcher',
-            'karma-sinon',
-        'karma-coverage'],
+             'karma-coverage'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
