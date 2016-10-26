@@ -1,43 +1,54 @@
 'use strict';
-
 var proxyquire = require('proxyquire');
 
-var fsStub = {
-    stat: function (path, callback) {
-    }
-};
+describe('Testy funkcji getFileProperties(filePath, callback) modułu fileReader.js', function () {
+    var stats;
+    var fsStub;
+    var pathStub;
+    var asyncStub;
+    var fileReader;
 
-var stats =  {
-    isDirectory: function(){
+    beforeEach(function () {
+        pathStub = {
+            basename: function (str) {
+            }
+        };
 
-    },
-    isFile: function () {
+        stats = {
+            isFile: function () {
+            },
+            mtime: 'xxxx',
+            birthtime: 'yyyy'
+        };
 
-    },
-    mtime:'',
-    birthtime:'',
-}
+        fsStub = {
+            statCalled: false,
+            stat: function (path, callback) {
+            }
+        };
 
-var pathStub = {
-    basename : function(str) {
+        fileReader = proxyquire('../../server/modules/fileReader', {
+            path: pathStub,
+            fs: fsStub,
+            async: asyncStub
+        });
 
-    }
-};
-var asyncStub = {};
+    });
 
-var fileReader = proxyquire('../../server/modules/fileReader', {
-    path: pathStub,
-    fs: fsStub,
-    async: asyncStub
-});
+    it('powinien być wywołany callback i spy', function () {
 
-describe('Testy filtrow uzywanych w aplikacji', function () {
-    it('powinien być wywołana funkcja processAllFilesFromDirectiory', function () {
-        var spy = spyOn(fileReader,'readAllFilesFromDirectory');
-        var iteratee = jasmine.createSpy('iteratee');
+        var spyIsFile = spyOn(stats, 'isFile').and.returnValue(false);
+        var spyFsStat = spyOn(fsStub,'stat').and.callFake(function(path,callback){
+            fsStub.statCalled=true;
+            callback(null,stats);
+        });
+
         var callback = jasmine.createSpy('callback');
-        fileReader.readAllFilesFromDirectory('pathToFiles', 'routeToFile', iteratee, callback);
-        expect(spy).toHaveBeenCalled();
+
+        fileReader.getFileProperties('fakePath', callback);
+        expect(spyIsFile).toHaveBeenCalled();
+        expect(spyFsStat).toHaveBeenCalled();
+        expect(fsStub.statCalled).toBeTruthy();
+        expect(callback).toHaveBeenCalled();
     });
 });
-

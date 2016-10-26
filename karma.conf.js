@@ -10,8 +10,8 @@ module.exports = function (config) {
         frameworks: ['jasmine', 'browserify'],
 
         // list of files / patterns to load in the browser
-        files: [
-            'tests/**/*.js'],
+        files: ['tests/**/*.js'
+        ],
 
         // list of files to exclude
         exclude: [],
@@ -19,7 +19,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'tests/**/*.js': ['browserify'],
+            'tests/**/*.js': ['browserify']
         },
 
         browserify: {
@@ -53,7 +53,7 @@ module.exports = function (config) {
             'karma-jasmine',
             'karma-browserify',
             'karma-chrome-launcher',
-             'karma-coverage'],
+            'karma-coverage'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

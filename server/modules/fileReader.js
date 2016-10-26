@@ -6,8 +6,6 @@ var async = require('async');
 var folderPath = '';
 var routeTo = '';
 
-
-
 function getFileProperties(filePath, callback) {
     fs.stat(filePath, function (error, stats) {
         if (error) {
@@ -21,7 +19,9 @@ function getFileProperties(filePath, callback) {
                 modified: stats.mtime,
                 created: stats.birthtime
             });
+            return;
         }
+        callback(new Error('Not a file'));
     });
 }
 
@@ -67,18 +67,10 @@ function readAllFilesFromDirectory(pathToFiles, routeToFile, iteratee, callback)
     processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, concatResults, callback);
 }
 
-function testFunction(param1, callback) {
-    if (param1) {
-        callback();
-    }
-}
-
-
 module.exports = {
     getFileProperties: getFileProperties,
     readAllFilesFromDirectory: readAllFilesFromDirectory,
     processAllFilesFromDirectiory: processAllFilesFromDirectiory,
     concatResults: concatResults,
-    forEachElem: forEachElem,
-    testFunction: testFunction
+    forEachElem: forEachElem
 };
