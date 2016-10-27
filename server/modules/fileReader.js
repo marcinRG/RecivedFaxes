@@ -25,15 +25,19 @@ function getFileProperties(filePath, callback) {
     });
 }
 
-function processFilesFromDirectory(pathToFiles, iteratee, processMethod, callback) {
+function processFilesFromDirectory(pathToFiles, iteratee, processMethod, transform, callback) {
     fs.readdir(pathToFiles, function (error, files) {
         if (error) {
             callback(error);
             return;
         }
-        var filesWithFolder = files.map(addFolder);
+        var filesWithFolder = transform(files);
         processMethod(filesWithFolder, iteratee, callback);
     });
+}
+
+function tranformResults(files) {
+    return files.map(addFolder);
 }
 
 function addFolder(v) {
@@ -41,7 +45,7 @@ function addFolder(v) {
 }
 
 function processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee,
-                                       processMethod, callback) {
+                                       processMethod, processFunc, transform, callback) {
     fs.stat(pathToFiles, function (error, stat) {
         if (error) {
             callback(error);
@@ -50,17 +54,21 @@ function processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee,
         if (stat.isDirectory()) {
             folderPath = pathToFiles;
             routeTo = routeToFile;
-            processFilesFromDirectory(pathToFiles, iteratee, processMethod, callback);
+            processFunc(pathToFiles, iteratee, processMethod, transform, callback);
+            return;
         }
+        callback(new Error('Not a directory'));
     });
 }
 
 function readAllFilesFromDirectory(pathToFiles, routeToFile, iteratee, callback) {
-    processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, async.concat, callback);
+    processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, async.concat,
+        processFilesFromDirectory, tranformResults, callback);
 }
 
 module.exports = {
     getFileProperties: getFileProperties,
     readAllFilesFromDirectory: readAllFilesFromDirectory,
-    processAllFilesFromDirectiory: processAllFilesFromDirectiory
+    processAllFilesFromDirectiory: processAllFilesFromDirectiory,
+    processFilesFromDirectory: processFilesFromDirectory
 };

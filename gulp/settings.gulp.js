@@ -16,7 +16,7 @@ var paths = {
     cssFile: cssFolder + 'style.css',
     index: devFolder + 'index.html',
 
-    allJs: ['./*.js', './server/**/*.js', jsAppFolder + '**/*.js'],
+    allJs: ['./*.js', serverFolder + '**/*.js', jsAppFolder + '**/*.js'],
     jsAppFiles: [jsAppFolder + '**/*.js'],
     jsFile: jsAppFolder + 'app.js',
     compiledJs: devFolder + 'js/bundle.js',
