@@ -38,9 +38,9 @@ describe('Testy funkcji getFileProperties(filePath, callback) modułu fileReader
     it('powinien być wywołany callback i spy', function () {
 
         var spyIsFile = spyOn(stats, 'isFile').and.returnValue(false);
-        var spyFsStat = spyOn(fsStub,'stat').and.callFake(function(path,callback){
-            fsStub.statCalled=true;
-            callback(null,stats);
+        var spyFsStat = spyOn(fsStub, 'stat').and.callFake(function (path, callback) {
+            fsStub.statCalled = true;
+            callback(null, stats);
         });
 
         var callback = jasmine.createSpy('callback');
@@ -56,8 +56,8 @@ describe('Testy funkcji getFileProperties(filePath, callback) modułu fileReader
 
         var error = new Error('Test Error');
         var spyIsFile = spyOn(stats, 'isFile').and.returnValue(false);
-        var spyFsStat = spyOn(fsStub,'stat').and.callFake(function(path,callback){
-            fsStub.statCalled=true;
+        var spyFsStat = spyOn(fsStub, 'stat').and.callFake(function (path, callback) {
+            fsStub.statCalled = true;
             callback(error);
         });
 
@@ -73,12 +73,11 @@ describe('Testy funkcji getFileProperties(filePath, callback) modułu fileReader
     it('powinien być wywołany callback z błędem', function () {
 
         var spyIsFile = spyOn(stats, 'isFile').and.returnValue(true);
-        var spyPathBasename = spyOn(pathStub,'basename').and.returnValue('++base++');
-         var spyFsStat = spyOn(fsStub,'stat').and.callFake(function(path,callback){
-            fsStub.statCalled=true;
-            callback(null,stats);
+        var spyPathBasename = spyOn(pathStub, 'basename').and.returnValue('++base++');
+        var spyFsStat = spyOn(fsStub, 'stat').and.callFake(function (path, callback) {
+            fsStub.statCalled = true;
+            callback(null, stats);
         });
-
 
         var callback = jasmine.createSpy('callback');
 
@@ -90,6 +89,4 @@ describe('Testy funkcji getFileProperties(filePath, callback) modułu fileReader
         expect(fsStub.statCalled).toBeTruthy();
         expect(callback).toHaveBeenCalled();
     });
-
-
 });
