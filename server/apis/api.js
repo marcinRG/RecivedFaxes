@@ -17,8 +17,8 @@ api.get(paths.pdfPath, function (request, response) {
         response.json(tabFileStats);
     }
 
-    fileReader.readAllFilesFromDirectory(dirSettings.pdfs, routes.pdfs,
-        fileReader.getFileProperties, writeTabStats);
+    fileReader.readAllFilesFromDirectory(dirSettings.pdfs,
+        routes.pdfs, fileReader.getFileProperties, writeTabStats);
 });
 
 api.get(paths.oldPdfPaths, function (request, response) {

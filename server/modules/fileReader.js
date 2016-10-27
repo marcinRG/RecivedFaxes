@@ -25,14 +25,6 @@ function getFileProperties(filePath, callback) {
     });
 }
 
-function concatResults(collection, iteratee, callback) {
-    async.concat(collection, iteratee, callback);
-}
-
-function forEachElem(collection, iteratee, callback) {
-    async.each(collection, iteratee, callback);
-}
-
 function processFilesFromDirectory(pathToFiles, iteratee, processMethod, callback) {
     fs.readdir(pathToFiles, function (error, files) {
         if (error) {
@@ -64,13 +56,11 @@ function processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee,
 }
 
 function readAllFilesFromDirectory(pathToFiles, routeToFile, iteratee, callback) {
-    processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, concatResults, callback);
+    processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, async.concat, callback);
 }
 
 module.exports = {
     getFileProperties: getFileProperties,
     readAllFilesFromDirectory: readAllFilesFromDirectory,
-    processAllFilesFromDirectiory: processAllFilesFromDirectiory,
-    concatResults: concatResults,
-    forEachElem: forEachElem
+    processAllFilesFromDirectiory: processAllFilesFromDirectiory
 };

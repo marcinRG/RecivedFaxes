@@ -37,8 +37,8 @@ var build = {
 };
 
 var server = {
-    serverApp: serverFolder + './server.js',
-    serverFiles: [serverFolder + '**/*.*'],
+    serverApp: serverFolder + 'server.js',
+    serverFiles: [serverFolder + 'server.js', serverFolder + '**/*.js'],
     port: 4580
 };
 

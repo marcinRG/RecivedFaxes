@@ -56,7 +56,7 @@ gulp.task('tests', function (done) {
 
     function testCompleted(results) {
         msg('Testy zakończone');
-        if (results===1){
+        if (results === 1) {
             done('Zakończone bledem');
         }
         else {
@@ -144,7 +144,8 @@ function msg(txt) {
 function serve(isDev) {
     var nodeOptions = {
         script: settings.server.serverApp,
-        delay: 1,
+        ext : 'js',
+        delay: 2500,
         env: {
             'PORT': settings.server.port,
             'NODE_ENV': isDev ? 'dev' : 'build'

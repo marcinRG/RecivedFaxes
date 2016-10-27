@@ -1,7 +1,10 @@
 'use strict';
+
+var serverPath = './server/';
+
 var paths = {
-    pdfs: './resources/pdfs',
-    oldPdfs: './resources/old_pdfs',
+    pdfs: serverPath + 'resources/pdfs',
+    oldPdfs: serverPath + 'resources/old_pdfs',
     page: './src',
     pageProd: './build'
 };
@@ -18,7 +21,7 @@ var apis = {
 
 var error = {
     url: '/errors',
-    path: './server/errorHandlers/pages',
+    path: serverPath + 'errorHandlers/pages',
     error404: '/errors/404.html',
     errorAll: '/errors/errorNS.html'
 };
