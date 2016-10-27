@@ -3,7 +3,7 @@
 @color500:  #8bc34a;
 @color800:  #558b2f;
 @grey : grey;
-@black: black;
+@form-width: 75%;
 
 @widthTriggerBiggest: 960px;
 @widthTriggerBig: 915px;
@@ -37,6 +37,7 @@
   margin-right: auto;
 }
 
+
 body {
 
   background-color: white;
@@ -54,14 +55,17 @@ body {
         width:100%;
       }
     }
+
+
     background-color: @color500;
 
     & h1 {
       &:extend(.setToZero);
       &:extend(.block-border-box);
       .roboto;
-      width:100%;
-      font-size:3rem;
+      color: white;
+      width: 100%;
+      font-size: 3rem;
       font-weight: 700;
       font-style: italic;
       padding-top: 1.2em;
@@ -78,8 +82,11 @@ body {
             display: none;
           }
         }
+
       }
+
     }
+
   }
 
   & nav {
