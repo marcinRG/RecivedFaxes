@@ -13,11 +13,15 @@
 @colorA400: #FFEA00;
 @colorA700: #FFD600;
 
-@elemsizeMedium : 70%;
+@elemsizeMedium: 70%;
 @elemsizeBig: 75%;
 @elemsizeBigger: 81%;
 
-@triggerMargins: 1260px;
+@menu-width: 290px;
+
+@triggerMargins: 1360px;
+@triggerSideMenu: 700px;
+
 @widthTriggerBigger: 1020px;
 @widthTriggerBig: 850px;
 @widthTriggerMedium: 660px;
@@ -48,26 +52,20 @@
 }
 
 body {
-
-  width:100%;
-  margin:0;
-
+  &:extend(.setToZero);
+  width: 100%;
+  background-color: white;
   @media screen {
     @media (min-width: @triggerMargins) {
       .margin-left-right-auto;
-      width:80%;
+      width: 80%;
     }
   }
-
-
-  background-color: white;
-  &:extend(.setToZero);
 
   & header {
     &:extend(.setToZero);
     &:extend(.block-border-box);
     .margin-left-right-auto;
-
     width: 100%;
     background-color: @color500;
 
@@ -157,38 +155,25 @@ body {
 
     & .faxes-content {
       &:extend(.setToZero);
-      &:extend(.border-box-sizing);
-      display: table;
+      box-sizing: border-box;
+      display: table-row;
+      overflow: hidden;
       width: 100%;
-
 
       & .menu-months {
         &:extend(.setToZero);
-        &:extend(.border-box-sizing);
+        box-sizing: border-box;
         display: table-cell;
         width: 100%;
-        float: left;
         background-color: @color700;
-
-
-        @media screen {
-          @media (min-width: @widthTriggerMedium) {
-            width:100%-@elemsizeMedium;
-          }
-        }
+        float: left;
 
         @media screen {
-          @media (min-width: @widthTriggerBig) {
-            width:100%-@elemsizeBig;
+          @media (min-width: @triggerSideMenu) {
+            width: @menu-width;
+            float: none;
           }
         }
-
-        @media screen {
-          @media (min-width: @widthTriggerBigger) {
-            width:100%-@elemsizeBigger;
-          }
-        }
-
 
         & .date-selector {
           &:extend(.setToZero);
@@ -196,14 +181,13 @@ body {
           width: 85%;
           .margin-left-right-auto;
           margin-top: 0.6em;
-          display:none;
+          display: none;
 
           @media screen {
-            @media (min-width: @widthTriggerMedium) {
-              display:block;
+            @media (min-width: @triggerSideMenu) {
+              display: block;
             }
           }
-
 
           & button {
             &:extend(.setToZero);
@@ -222,7 +206,6 @@ body {
             &:nth-of-type(1) {
               margin-bottom: 0.6em;
             }
-
           }
 
           & ul {
@@ -249,13 +232,13 @@ body {
                 width: 100%;
 
                 &::before {
-                  content:'>>>';
+                  content: '>>>';
                   padding: 0 0.3em;
                 }
 
                 &:hover {
                   color: @color200;
-                  background-color:@color900;
+                  background-color: @color900;
                 }
               }
             }
@@ -265,50 +248,36 @@ body {
         & .show-menu {
           &:extend(.block-border-box);
           &:extend(.setToZero);
-          width:100%;
-          text-align:center;
-          color:white;
+          width: 100%;
+          text-align: center;
+          color: white;
           font-weight: 200;
           background-color: @color700;
-          padding:1.2em;
-        }
+          padding: 1.2em;
 
+          @media screen {
+            @media (min-width: @triggerSideMenu) {
+              display: none;
+            }
+          }
+        }
       }
 
       & .main-content {
         &:extend(.setToZero);
-        &:extend(.border-box-sizing);
+        box-sizing: border-box;
         display: table-cell;
-        width: 100%;
         float: left;
 
         @media screen {
-          @media (min-width: @widthTriggerMedium) {
-            width:@elemsizeMedium;
+          @media (min-width: @triggerSideMenu) {
+            float: none;
           }
         }
-
-        @media screen {
-          @media (min-width: @widthTriggerBig) {
-            width:@elemsizeBig;
-          }
-        }
-        @media screen {
-          @media (min-width: @widthTriggerBigger) {
-            width:@elemsizeBigger;
-          }
-        }
-
       }
-
       &::after {
         clear: both;
       }
     }
   }
 }
-
-
-
-
-

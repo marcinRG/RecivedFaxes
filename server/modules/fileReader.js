@@ -1,51 +1,51 @@
+'use strict';
 var fs = require('fs');
 var path = require('path');
 var async = require('async');
 
-var folderPath='';
+var folderPath = '';
 var routeTo = '';
 
 function getFileProperties(filePath, callback) {
-    fs.stat(filePath, function (error, stat) {
+    fs.stat(filePath, function (error, stats) {
         if (error) {
             callback(error);
             return;
         }
-        if (stat.isFile()) {
+        if (stats.isFile()) {
             callback(null, {
-                path: routeTo+'/'+path.basename(filePath),
+                path: routeTo + '/' + path.basename(filePath),
                 fileName: path.basename(filePath),
-                modified: stat.mtime,
-                created: stat.birthtime
+                modified: stats.mtime,
+                created: stats.birthtime
             });
+            return;
         }
+        callback(new Error('Not a file'));
     });
 }
 
-function concatResults(collection,iteratee,callback) {
-    async.concat(collection,iteratee,callback);
-}
-
-function forEachElem(collection,iteratee,callback) {
-    async.each(collection,iteratee,callback);
-}
-
-function processFilesFromDirectory(pathToFiles, iteratee, processMethod, callback) {
+function processFilesFromDirectory(pathToFiles, iteratee, processMethod, transform, callback) {
     fs.readdir(pathToFiles, function (error, files) {
         if (error) {
             callback(error);
             return;
         }
-        var filesWithFolder = files.map(addFolder);
+        var filesWithFolder = transform(files);
         processMethod(filesWithFolder, iteratee, callback);
     });
+}
+
+function tranformResults(files) {
+    return files.map(addFolder);
 }
 
 function addFolder(v) {
     return path.join(folderPath, v);
 }
 
-function processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, processMethod, callback) {
+function processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee,
+                                       processMethod, processFunc, transform, callback) {
     fs.stat(pathToFiles, function (error, stat) {
         if (error) {
             callback(error);
@@ -53,21 +53,22 @@ function processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, proce
         }
         if (stat.isDirectory()) {
             folderPath = pathToFiles;
-            routeTo =routeToFile;
-            processFilesFromDirectory(pathToFiles, iteratee, processMethod,callback);
+            routeTo = routeToFile;
+            processFunc(pathToFiles, iteratee, processMethod, transform, callback);
+            return;
         }
+        callback(new Error('Not a directory'));
     });
 }
 
 function readAllFilesFromDirectory(pathToFiles, routeToFile, iteratee, callback) {
-    processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, concatResults,callback);
+    processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, async.concat,
+        processFilesFromDirectory, tranformResults, callback);
 }
 
-
 module.exports = {
-    getFileProperties:getFileProperties,
-    readAllFilesFromDirectory:readAllFilesFromDirectory,
+    getFileProperties: getFileProperties,
+    readAllFilesFromDirectory: readAllFilesFromDirectory,
     processAllFilesFromDirectiory: processAllFilesFromDirectiory,
-    concatResults:concatResults,
-    forEachElem:forEachElem
+    processFilesFromDirectory: processFilesFromDirectory
 };
