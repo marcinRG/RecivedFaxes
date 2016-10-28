@@ -238,4 +238,3 @@ describe('Testy modulu fileReader.js', function () {
 
         });
 });
-
