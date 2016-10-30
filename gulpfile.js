@@ -31,8 +31,10 @@ gulp.task('browserify-inject-js', ['browserify-compil'], function () {
 });
 
 gulp.task('browserify-compil', ['code-check'], function () {
-    return browserify(settings.app.jsFile)
-        .bundle()
+    return browserify({
+        entries: [settings.app.jsFile],
+        debug: true
+    }).bundle()
         .pipe(source(settings.app.compiledJs))
         .pipe(gulp.dest('./'));
 });
@@ -144,7 +146,7 @@ function msg(txt) {
 function serve(isDev) {
     var nodeOptions = {
         script: settings.server.serverApp,
-        ext : 'js',
+        ext: 'js',
         delay: 2500,
         env: {
             'PORT': settings.server.port,

@@ -17,11 +17,11 @@ var app = express();
 app.use(routes.pdfs, express.static(path.join(__dirname, '../' + pathSettings.pdfs)));
 app.use(routes.oldPdfs, express.static(path.join(__dirname, '../' + pathSettings.oldPdfs)));
 app.use(errorSettings.url, express.static(path.join(__dirname, '../' + errorSettings.path)));
-if (enviroment === 'dev') {
-    app.use(express.static(path.join(__dirname, '../' + pathSettings.page)));
-}
 if (enviroment === 'build') {
     app.use(express.static(path.join(__dirname, '../' + pathSettings.pageProd)));
+}
+else {
+    app.use(express.static(path.join(__dirname, '../' + pathSettings.page)));
 }
 
 app.use(apiRequests);
