@@ -2,71 +2,76 @@
 
 var _ = require('lodash');
 var months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
-var files;
-var fileFilters;
 
+function filesWithDateFilter(data) {
+    var files;
 
-function createFileObject(obj) {
-    var newObj = new Object();
-    newObj.path = obj.path;
-    newObj.fileName = obj.fileName;
-    newObj.date = new Date(obj.modified);
-    return newObj;
+    function intialize(inputFiles) {
+        files = _.chain(inputFiles)
+            .map(getModifiedObj)
+            .orderBy('date', 'desc')
+            .value();
+    }
+
+    function getFilters() {
+        return _.chain(files)
+            .groupBy(getMonthNameYear)
+            .map(function (value, key) {
+                return {
+                    monthYear: key,
+                    days: createDaysTable(value)
+                };
+            })
+            .value();
+    }
+
+    intialize(data);
+    return {
+        getFilters: getFilters
+    };
 }
 
-function createFilters(obj) {
-    var objNew = new Object();
-    objNew.name = months[obj.date.getMonth()] + ' ' + obj.date.getFullYear();
-    objNew.month = obj.date.getMonth();
-    objNew.year = obj.date.getFullYear();
-    return objNew;
+function getModifiedObj(obj) {
+    return {
+        path: obj.path,
+        fileName: obj.fileName,
+        date: new Date(obj.modified)
+    };
 }
 
-function getFilesSortedByMonthsYears() {
-
+function getMonthNameYear(obj) {
+    return months[obj.date.getMonth()] + ' ' + obj.date.getFullYear();
 }
 
-function getFilesSortedByDays() {
-
+function date2Str(date) {
+    var day;
+    var month;
+    day = date.getUTCDate();
+    if (date.getUTCDate() < 10) {
+        day = '0' + date.getUTCDate();
+    }
+    month = date.getMonth() + 1;
+    if (date.getMonth() + 1 < 10) {
+        month = '0' + (date.getMonth() + 1).toString();
+    }
+    return date.getFullYear() + '-' + month + '-' + day;
 }
 
-function getFileFilters() {
-    return fileFilters;
-}
-
-function getAllFiles() {
-    return files;
-}
-
-function intialize(data) {
-    files = _.orderBy(_.map(data, createFileObject), 'date', 'desc');
-    fileFilters = _.uniqBy(_.map(files, createFilters), function (value) {
-        return value.name;
-    });
-
-    var days = _.filter(files, function (obj) {
-        return (obj.date.getMonth() + obj.date.getFullYear() === fileFilters[0].month + fileFilters[0].year);
-    });
-
-    var days2 = _.chain(files).map(function (value) {
-        var newobj = {};
-        newobj.dateStr = value.date.toLocaleDateString('pl-Pl');
-        newobj.date = value.date;
-        return newobj;
-    })
-        .filter(function (obj) {
-            return (obj.date.getMonth() + obj.date.getFullYear() === fileFilters[0].month + fileFilters[0].year);
-        }).uniqBy(function (value) {
-            return value.date
-        }).value();
-
-    console.log(days2);
-
-
+function createDaysTable(monthDays) {
+    return _.chain(monthDays)
+        .map(function (day) {
+            return {
+                dateStr: date2Str(day.date)
+            };
+        })
+        .uniqBy('dateStr')
+        .value();
 }
 
 module.exports = {
-    intialize: intialize,
-    getAllFiles: getAllFiles,
-    getFileFilters: getFileFilters
+    filesWithDateFilter: filesWithDateFilter,
+    date2Str: date2Str,
+    getMonthNameYear: getMonthNameYear,
+    getModifiedObj: getModifiedObj,
+    months: months
 };
