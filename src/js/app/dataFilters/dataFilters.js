@@ -1,19 +1,19 @@
 'use strict';
 
 var _ = require('lodash');
-var months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+var dateUtils = require('../utils/date.utils');
 
-function filesWithDateFilter(data) {
-    var files;
+function intializeFileCollection(files) {
+    return _.chain(files)
+        .map(createDatePathFileNameObj)
+        .orderBy('date', 'desc')
+        .value();
+}
 
-    function intialize(inputFiles) {
-        files = _.chain(inputFiles)
-            .map(getModifiedObj)
-            .orderBy('date', 'desc')
-            .value();
-    }
+function FilesListWithDateFilter(data) {
+    var files = intializeFileCollection(data);
 
-    function getFilters() {
+    function getDateFilters() {
         return _.chain(files)
             .groupBy(getMonthNameYear)
             .map(function (value, key) {
@@ -25,13 +25,61 @@ function filesWithDateFilter(data) {
             .value();
     }
 
-    intialize(data);
+    function getFilesFormDay(dateString) {
+        return _.filter(files, function (value) {
+            return (dateUtils.date2string(value.date) === dateString);
+        });
+    }
+
     return {
-        getFilters: getFilters
+        getDateFilters: getDateFilters,
+        getFilesFromDay: getFilesFormDay
     };
 }
 
-function getModifiedObj(obj) {
+function FilesListWithOrderSelection(data) {
+    var files = intializeFileCollection(data);
+    var lastOrder = {};
+    var orderMethods = [
+        {name: 'Datami utworzenia', value: 'date', sort: 'asc'},
+        {name: 'Nazwami plików', value: 'fileName', sort: 'asc'}
+    ];
+
+    function getOrderNames() {
+        return _.chain(orderMethods)
+            .orderBy('name', 'asc')
+            .map(function (value) {
+                return value.name;
+            })
+            .value();
+    }
+
+    function setSortOrder(sortName) {
+        if (sortName !== lastOrder.name) {
+            lastOrder = _.filter(orderMethods, function (value) {
+                return value.name === sortName;
+            })[0];
+            return;
+        }
+        lastOrder.sort = lastOrder.sort==='asc'?'desc':'asc';
+    }
+
+    function sortFilesBy(sortName) {
+        setSortOrder(sortName);
+        return _.orderBy(files,lastOrder.value,lastOrder.sort);
+    }
+
+    return {
+        getOrderNames: getOrderNames,
+        sortFilesBy: sortFilesBy
+    };
+}
+
+function getMonthNameYear(obj) {
+    return dateUtils.getMonthNameYear(obj.date);
+}
+
+function createDatePathFileNameObj(obj) {
     return {
         path: obj.path,
         fileName: obj.fileName,
@@ -39,29 +87,11 @@ function getModifiedObj(obj) {
     };
 }
 
-function getMonthNameYear(obj) {
-    return months[obj.date.getMonth()] + ' ' + obj.date.getFullYear();
-}
-
-function date2Str(date) {
-    var day;
-    var month;
-    day = date.getUTCDate();
-    if (date.getUTCDate() < 10) {
-        day = '0' + date.getUTCDate();
-    }
-    month = date.getMonth() + 1;
-    if (date.getMonth() + 1 < 10) {
-        month = '0' + (date.getMonth() + 1).toString();
-    }
-    return date.getFullYear() + '-' + month + '-' + day;
-}
-
 function createDaysTable(monthDays) {
     return _.chain(monthDays)
         .map(function (day) {
             return {
-                dateStr: date2Str(day.date)
+                dateStr: dateUtils.date2string(day.date)
             };
         })
         .uniqBy('dateStr')
@@ -69,9 +99,7 @@ function createDaysTable(monthDays) {
 }
 
 module.exports = {
-    filesWithDateFilter: filesWithDateFilter,
-    date2Str: date2Str,
-    getMonthNameYear: getMonthNameYear,
-    getModifiedObj: getModifiedObj,
-    months: months
+    FilesWithDateFilter: FilesListWithDateFilter,
+    FilesWithOrderSelection: FilesListWithOrderSelection,
+    createDatePathFileNameObj: createDatePathFileNameObj
 };

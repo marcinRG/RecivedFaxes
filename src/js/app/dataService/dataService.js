@@ -4,7 +4,7 @@ var $ = require('jquery');
 var localForage = require('localforage');
 var utils = require('../utils/utilities');
 
-function getServerData(path, errorMsg) {
+function getDataFromServer(path, errorMsg) {
     return $.when($.get(path)).done(function (data) {
         return data;
     }).fail(function () {
@@ -26,22 +26,30 @@ function setItem(key, value, expireParams) {
     return $.when(localForage.setItem(key, obj));
 }
 
+function returnExpirableData(data,date) {
+    var deferred = $.Deferred();
+    if (data !== null) {
+        if (hasExpirationDate(data)) {
+            if (isValidDate(data, date)) {
+                deferred.resolve(data.value);
+            }
+            else {
+                deferred.reject(errorMsg);
+            }
+        }
+        else {
+            deferred.resolve(data);
+        }
+    }
+    return deferred;
+}
+
 function getItem(key, errorMsg) {
     var date = new Date();
     var deferred = $.Deferred();
     $.when(localForage.getItem(key)).done(function (data) {
         if (data !== null) {
-            if (hasExpirationDate(data)) {
-                if (isValidDate(data, date)) {
-                    deferred.resolve(data.value);
-                }
-                else {
-                    deferred.reject(errorMsg);
-                }
-            }
-            else {
-                deferred.resolve(data);
-            }
+            deferred = returnExpirableData(data,date);
         }
         else {
             deferred.reject(errorMsg);
@@ -65,22 +73,22 @@ function isValidDate(object, date) {
     return false;
 }
 
-function getDataAddToLocal(path, key, errorMsg, expireParams) {
-    return $.when(getServerData(path, errorMsg)).then(function (data) {
+function getDataFromServerAndAddToStorage(path, key, errorMsg, expireParams) {
+    return $.when(getDataFromServer(path, errorMsg)).then(function (data) {
         return setItem(key, data, expireParams).then(function () {
-            return getItem(key,errorMsg);
+            return getItem(key, errorMsg);
         });
     }).catch(function () {
         return errorMsg;
     });
 }
 
-function getCatchedData(path, key, errorMsg, expireParams) {
+function getData(path, key, errorMsg, expireParams) {
     return $.when(getItem(key, errorMsg))
         .then(function (data) {
             return data;
         }, function () {
-            return getDataAddToLocal(path, key, errorMsg, expireParams);
+            return getDataFromServerAndAddToStorage(path, key, errorMsg, expireParams);
         })
         .catch(function () {
             return errorMsg;
@@ -88,9 +96,9 @@ function getCatchedData(path, key, errorMsg, expireParams) {
 }
 
 module.exports = {
-    getData: getServerData,
-    getCatchedData: getCatchedData,
-    getDataAddToLocal: getDataAddToLocal,
+    getDataFromServer: getDataFromServer,
+    getData: getData,
+    getDataFromServerAndAddToStorage: getDataFromServerAndAddToStorage,
     setItem: setItem,
     getItem: getItem
 };
