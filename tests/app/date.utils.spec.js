@@ -2,7 +2,7 @@
 var dateUtilities = require('../../src/js/app/utils/date.utils');
 var date = new Date();
 
-describe('Testy modulu date.utils.js',function(){
+describe('Testy modulu date.dateGen.js',function(){
     it('Powinien istnieć obiekt dateUtilites',function(){
         expect(dateUtilities).not.toBeNull();
     });
@@ -31,4 +31,17 @@ describe('Testy modulu date.utils.js',function(){
         expect(dateUtilities.getMonthNameYear(date2)).toBe('wrzesień 2016');
     });
 
+    it('Powinno zwrócić taki sam obiekt typu date jak podany jako argument lub utworzyć nowy',function(){
+       date.setFullYear(2015,0,31);
+       expect(dateUtilities.getNewOrCurrentDate(date)).toEqual(date);
+       expect(dateUtilities.getNewOrCurrentDate() instanceof Date).toBeTruthy();
+    });
+
+   it('Powinno porównać dwie daty jesliu pierwsza mniejsza zwrócić true',function(){
+      var date1 = new Date();
+      var date2 = new Date();
+      date1.setFullYear(2016,1,21);
+      date2.setFullYear(2016,5,23);
+      expect(dateUtilities.compareDates(date1,date2)).toBeTruthy();
+   });
 });

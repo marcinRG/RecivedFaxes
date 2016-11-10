@@ -61,12 +61,12 @@ function FilesListWithOrderSelection(data) {
             })[0];
             return;
         }
-        lastOrder.sort = lastOrder.sort==='asc'?'desc':'asc';
+        lastOrder.sort = lastOrder.sort === 'asc' ? 'desc' : 'asc';
     }
 
     function sortFilesBy(sortName) {
         setSortOrder(sortName);
-        return _.orderBy(files,lastOrder.value,lastOrder.sort);
+        return _.orderBy(files, lastOrder.value, lastOrder.sort);
     }
 
     return {

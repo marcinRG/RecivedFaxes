@@ -2,7 +2,8 @@
 
 var $ = require('jquery');
 var localForage = require('localforage');
-var utils = require('../utils/utilities');
+var dateGen = require('../utils/dateGenerator');
+var dateUtils = require('../utils/date.utils');
 
 function getDataFromServer(path, errorMsg) {
     return $.when($.get(path)).done(function (data) {
@@ -16,7 +17,7 @@ function setItem(key, value, expireParams) {
     var obj;
     if (expireParams) {
         obj = {
-            expirationDate: utils.getDelayedDate(expireParams),
+            expirationDate: dateGen.getDateDelayedByTimeParams(expireParams),
             value: value
         };
     }
@@ -26,14 +27,18 @@ function setItem(key, value, expireParams) {
     return $.when(localForage.setItem(key, obj));
 }
 
-function returnExpirableData(data,date) {
+function returnExpirableData(data, errorMsg, date) {
+    console.log('----Expir data');
     var deferred = $.Deferred();
     if (data !== null) {
         if (hasExpirationDate(data)) {
+            console.log('-----Expir data has expiration');
             if (isValidDate(data, date)) {
+                console.log('------Expir data valid date');
                 deferred.resolve(data.value);
             }
             else {
+                console.log('------Expir data not valid date');
                 deferred.reject(errorMsg);
             }
         }
@@ -41,15 +46,19 @@ function returnExpirableData(data,date) {
             deferred.resolve(data);
         }
     }
+    console.log('------before leve expir');
     return deferred;
 }
 
 function getItem(key, errorMsg) {
     var date = new Date();
     var deferred = $.Deferred();
+    console.log('Poczatek');
     $.when(localForage.getItem(key)).done(function (data) {
+        console.log('Dane');
         if (data !== null) {
-            deferred = returnExpirableData(data,date);
+            console.log('Data not null');
+            return returnExpirableData(data, errorMsg, date);
         }
         else {
             deferred.reject(errorMsg);
@@ -57,7 +66,7 @@ function getItem(key, errorMsg) {
     }).fail(function () {
         deferred.reject(errorMsg);
     });
-    return deferred.promise();
+    return deferred;
 }
 
 function hasExpirationDate(object) {
@@ -66,7 +75,7 @@ function hasExpirationDate(object) {
 
 function isValidDate(object, date) {
     if (hasExpirationDate(object)) {
-        if (utils.smallerDate(date, object.expirationDate)) {
+        if (dateUtils.compareDates(date, object.expirationDate)) {
             return true;
         }
     }
@@ -96,6 +105,8 @@ function getData(path, key, errorMsg, expireParams) {
 }
 
 module.exports = {
+    hasExpirationDate: hasExpirationDate,
+    returnExpirableData: returnExpirableData,
     getDataFromServer: getDataFromServer,
     getData: getData,
     getDataFromServerAndAddToStorage: getDataFromServerAndAddToStorage,

@@ -30,7 +30,7 @@ module.exports = function (config) {
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress', 'coverage'],
+        reporters: ['progress'],
 
         // web server port
         port: 9876,
@@ -52,8 +52,8 @@ module.exports = function (config) {
         plugins: [
             'karma-jasmine',
             'karma-browserify',
-            'karma-chrome-launcher',
-            'karma-coverage'],
+            'karma-chrome-launcher'
+            ],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

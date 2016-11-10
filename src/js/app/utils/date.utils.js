@@ -1,3 +1,5 @@
+'use strict';
+
 var months = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec',
     'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
 
@@ -19,7 +21,20 @@ function getMonthNameYear(date) {
     return months[date.getMonth()] + ' ' + date.getFullYear();
 }
 
+function getNewOrCurrentDate(date) {
+    if (date && date instanceof Date) {
+        return date;
+    }
+    return new Date();
+}
+
+function compareDates(dateSmaller, dateBigger) {
+    return (dateSmaller.getTime() < dateBigger.getTime());
+}
+
 module.exports = {
     date2string: date2string,
-    getMonthNameYear: getMonthNameYear
+    getMonthNameYear: getMonthNameYear,
+    getNewOrCurrentDate: getNewOrCurrentDate,
+    compareDates: compareDates
 };

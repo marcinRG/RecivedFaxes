@@ -18,4 +18,3 @@ module.exports = {
     getFaxes: getFaxes,
     getOldFaxes: getOldFaxes
 };
-

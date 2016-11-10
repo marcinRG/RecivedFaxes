@@ -12,4 +12,3 @@ var localStorageSettings = {
 module.exports = {
     storageSettings: localStorageSettings
 };
-
