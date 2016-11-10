@@ -1,26 +1,35 @@
 'use strict';
+var settings = require('./settings/app.settings');
 var dataService = require('./dataService/dataService');
-var localForage = require('localforage');
+var dataFilters = require('./dataFilters/dataFilters');
 var $ = require('jquery');
 
-localForage.config({
-    driver: localForage.INDEXEDDB, // Force WebSQL; same as using setDriver()
-    name: 'RecivedFaxes',
-    version: 1.0,
-    size: 4980736, // Size of database, in bytes. WebSQL-only for now.
-    storeName: 'baza_RecivedFaxes', // Should be alphanumeric, with underscores.
-    description: 'moja baza lokalna'
-});
+var menuElems = require('./uiElems/menuElements');
 
-var settings = {
-    pdfs: 'pdfs',
-    oldPdfs: 'oldPdfs',
-    expire: {minutes: 10},
-    pdfsRoute: '/api/pdfs',
-    oldPdfsRoute: '/api/oldPdfs'
-};
+$.when(dataService.getData(settings.routes.pdfsRoute,
+    settings.storageAdditionalSettings.pdfs, 'Wystąpił błąd poczas wczytywana danych'))
+    .done(function (data) {
+        var filters = dataFilters.FilesWithDateFilter(data);
+        console.log('******Start************');
+        var filterValues = filters.getDateFilters();
+        var div = menuElems.createMenuDateFilters(filterValues);
+        $('.date-selector').html(div);
+        console.log('*********Koniec**********');
+    })
+    .fail(function (error) {
+        console.log(error);
+    });
 
-console.log('******Start************');
+//
+// var mainElem = $('.main-content');
+// var x = 0;
+// var button = $('#costam');
+//
+// button.on('click', function () {
+//     x++;
+//     console.log('Wywołanie funckcji'+x);
+//     menuDates.createButton(mainElem,'To jest button'+x);
+// });
 
 // $.when(dataService.setItem('xxxx', '234', settings.expire))
 //     .done(function (data) {
@@ -33,16 +42,50 @@ console.log('******Start************');
 //     .fail(function (error) {
 //         console.log(error);
 //     });
+//
+// $.when(dataService.setItem('xxxx555', '123'))
+//     .done(function (data) {
+//         console.log(data);
+//         if (dataService.hasExpirationDate(data)) {
+//             console.log('Ma date wygasniecia');
+//             console.log(data.expirationDate instanceof Date);
+//         }
+//     })
+//     .fail(function (error) {
+//         console.log(error);
+//     });
 
-$.when(dataService.getItem('xxxx', 'Bład pobierania ssss'))
-    .done(function (data) {
-        console.log('Było ok');
-        console.log(data);
-    })
-    .fail(function (error) {
-        console.log('Bład');
-        console.log(error);
-    });
+// $.when(dataService.getItem('xxxx', 'Bład pobierania ssss')).done(function (data) {
+//     console.log(data);
+// }).fail(function (error) {
+//     console.log('Bład');
+//     console.log(error);
+// });
+
+// $.when(dataService.getItem('xxxx555', 'Bład pobierania 123')).done(function (data) {
+//     console.log(data);
+// }).fail(function (error) {
+//     console.log('Bład');
+//     console.log(error);
+// });
+
+// $.when(dataService.getData(settings.pdfsRoute,
+//     'jakis_klucz', 'Wystąpił błąd'))
+//     .done(function (data) {
+//         console.log(data);
+//     })
+//     .fail(function (error) {
+//         console.log(error);
+//     });
+//
+// $.when(dataService.getData(settings.oldPdfsRoute,
+//     'jakis_klucz2', 'Wystąpił błąd',settings.expire))
+//     .done(function (data) {
+//         console.log(data);
+//     })
+//     .fail(function (error) {
+//         console.log(error);
+//     });
 
 // $.when(dataService.getDataFromServer(settings.pdfsRoute, 'Wystąpił błąd'))
 //     .done(function (data) {
@@ -59,5 +102,3 @@ $.when(dataService.getItem('xxxx', 'Bład pobierania ssss'))
 //     .fail(function (error) {
 //         console.log(error);
 //     });
-
-console.log('*********Koniec**********');
