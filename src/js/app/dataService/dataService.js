@@ -27,18 +27,13 @@ function setItem(key, value, expireParams) {
     return $.when(localForage.setItem(key, obj));
 }
 
-function returnExpirableData(data, errorMsg, date) {
-    console.log('----Expir data');
-    var deferred = $.Deferred();
+function getRawData(data, errorMsg, date, deferred) {
     if (data !== null) {
         if (hasExpirationDate(data)) {
-            console.log('-----Expir data has expiration');
             if (isValidDate(data, date)) {
-                console.log('------Expir data valid date');
                 deferred.resolve(data.value);
             }
             else {
-                console.log('------Expir data not valid date');
                 deferred.reject(errorMsg);
             }
         }
@@ -46,23 +41,14 @@ function returnExpirableData(data, errorMsg, date) {
             deferred.resolve(data);
         }
     }
-    console.log('------before leve expir');
-    return deferred;
+    deferred.reject(errorMsg);
 }
 
 function getItem(key, errorMsg) {
     var date = new Date();
     var deferred = $.Deferred();
-    console.log('Poczatek');
     $.when(localForage.getItem(key)).done(function (data) {
-        console.log('Dane');
-        if (data !== null) {
-            console.log('Data not null');
-            return returnExpirableData(data, errorMsg, date);
-        }
-        else {
-            deferred.reject(errorMsg);
-        }
+        getRawData(data, errorMsg, date, deferred);
     }).fail(function () {
         deferred.reject(errorMsg);
     });
@@ -106,7 +92,6 @@ function getData(path, key, errorMsg, expireParams) {
 
 module.exports = {
     hasExpirationDate: hasExpirationDate,
-    returnExpirableData: returnExpirableData,
     getDataFromServer: getDataFromServer,
     getData: getData,
     getDataFromServerAndAddToStorage: getDataFromServerAndAddToStorage,

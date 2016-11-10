@@ -219,6 +219,7 @@ body main .faxes-content {
 body main .faxes-content .menu-months {
   box-sizing: border-box;
   display: table-cell;
+  vertical-align: top;
   width: 100%;
   background-color: #689F38;
   float: left;

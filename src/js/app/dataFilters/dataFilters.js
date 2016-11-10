@@ -64,6 +64,11 @@ function FilesListWithOrderSelection(data) {
         lastOrder.sort = lastOrder.sort === 'asc' ? 'desc' : 'asc';
     }
 
+    function getRecent() {
+        console.log('Tutaj będzie funckcja' +
+            'która zwraca ostatnie');
+    }
+
     function sortFilesBy(sortName) {
         setSortOrder(sortName);
         return _.orderBy(files, lastOrder.value, lastOrder.sort);
@@ -71,7 +76,8 @@ function FilesListWithOrderSelection(data) {
 
     return {
         getOrderNames: getOrderNames,
-        sortFilesBy: sortFilesBy
+        sortFilesBy: sortFilesBy,
+        getRecent:getRecent
     };
 }
 
