@@ -1,31 +1,5 @@
 @import "fonts.less";
-
-@color500: #8bc34a;
-@color800: #558b2f;
-@color700: #689F38;
-@color200: #C5E1A5;
-@color100: #DCEDC8;
-@color900: #33691E;
-@color50: #F1F8E9;
-
-@colorA100: #CCFF90;
-@colorA200: #B2FF59;
-@colorA400: #FFEA00;
-@colorA700: #FFD600;
-
-@elemsizeMedium: 70%;
-@elemsizeBig: 75%;
-@elemsizeBigger: 81%;
-
-@menu-width: 290px;
-
-@triggerMargins: 1360px;
-@triggerSideMenu: 700px;
-
-@widthTriggerBigger: 1020px;
-@widthTriggerBig: 850px;
-@widthTriggerMedium: 660px;
-@widthTriggerSmall: 345px;
+@import "variables";
 
 .roboto {
   font-family: 'Roboto', sans-serif;
@@ -39,10 +13,6 @@
 
 .block-border-box {
   display: block;
-  box-sizing: border-box;
-}
-
-.border-box-sizing {
   box-sizing: border-box;
 }
 
@@ -114,6 +84,7 @@ body {
       list-style: none;
       width: 100%;
       overflow: hidden;
+
       & li {
         &:extend(.setToZero);
         &:extend(.block-border-box);
@@ -123,8 +94,13 @@ body {
         padding: 1.5em 2em 1.5em 2em;
         font-weight: 500;
         font-size: 0.85em;
-
         float: left;
+
+        @media screen {
+          @media (max-width: @widthTriggerSmall) {
+            padding: 1.5em 1em 1.5em 1em;
+          }
+        }
 
         &.selected {
           color: @colorA700;
@@ -135,13 +111,8 @@ body {
           background-color: @color100;
           color: @color800;
         }
-
-        @media screen {
-          @media (max-width: @widthTriggerSmall) {
-            padding: 1.5em 1em 1.5em 1em;
-          }
-        }
       }
+
       &::after {
         clear: both;
       }
@@ -156,23 +127,29 @@ body {
     & .faxes-content {
       &:extend(.setToZero);
       box-sizing: border-box;
-      display: table-row;
+      display: block;
       overflow: hidden;
       width: 100%;
 
+      @media screen {
+        @media (min-width: @triggerSideMenu) {
+          display: table-row;
+        }
+      }
+
       & .menu-months {
-        &:extend(.setToZero);
+        .setToZero;
         box-sizing: border-box;
-        display: table-cell;
-        vertical-align: top;
+        display:block;
         width: 100%;
         background-color: @color700;
-        float: left;
 
         @media screen {
           @media (min-width: @triggerSideMenu) {
             width: @menu-width;
             float: none;
+            display: table-cell;
+            vertical-align: top;
           }
         }
 
@@ -255,6 +232,7 @@ body {
           font-weight: 200;
           background-color: @color700;
           padding: 1.2em;
+          outline: none;
 
           @media screen {
             @media (min-width: @triggerSideMenu) {
@@ -266,15 +244,91 @@ body {
 
       & .main-content {
         &:extend(.setToZero);
-        box-sizing: border-box;
-        display: table-cell;
-        float: left;
+        .block-border-box;
+        float:left;
+        width:100%;
+        overflow: hidden;
 
         @media screen {
           @media (min-width: @triggerSideMenu) {
             float: none;
+            width:auto;
+            display: table-cell;
           }
         }
+
+        & .file-container {
+          .setToZero;
+          .block-border-box;
+          width: 96%;
+          margin:2%;
+          float:left;
+          text-align: center;
+
+          @media screen {
+            @media (min-width: @widthImageBreak) {
+               width:46%;
+            }
+          }
+
+          @media screen {
+            @media (min-width: @triggerSideMenu) {
+              width:96%;
+            }
+          }
+
+          @media screen {
+            @media (min-width: @widthImageBreakBigger) {
+              width:46%;
+            }
+          }
+
+          @media screen {
+            @media (min-width:1270px) {
+              width:29.33%;
+            }
+          }
+
+          @media screen {
+            @media (min-width:1360px) {
+              width:46%;
+            }
+          }
+
+          @media screen {
+            @media (min-width:1580px) {
+              width:29.33%;
+            }
+          }
+
+          & img {
+            .setToZero;
+            max-width: 95%;
+          }
+
+          & ul {
+            .setToZero;
+            .block-border-box;
+            with:100%;
+            list-style:none;
+
+            & li {
+              .roboto;
+               font-size:0.7em;
+              .setToZero;
+              .block-border-box;
+              with:100%;
+              color:@color900;
+              background-color: @color50;
+            }
+          }
+
+          &::after {
+            clear:both;
+          }
+
+        }
+
       }
       &::after {
         clear: both;
