@@ -4,16 +4,20 @@ var dataService = require('./dataService/dataService');
 var dataFilters = require('./dataFilters/dataFilters');
 var $ = require('jquery');
 
-var menuElems = require('./uiElems/menuElements');
+var menuElems = require('./uiElements/uiElements');
 
 $.when(dataService.getData(settings.routes.pdfsRoute,
     settings.storageAdditionalSettings.pdfs, 'Wystąpił błąd poczas wczytywana danych'))
     .done(function (data) {
         var filters = dataFilters.FilesWithDateFilter(data);
         console.log('******Start************');
-        var filterValues = filters.getDateFilters();
-        var div = menuElems.createMenuDateFilters(filterValues);
+        var div = menuElems.createMenuDateFilters(filters.getDateFilters());
+        var orderSelections = dataFilters.FilesWithOrderSelection(data);
+        var div2 = menuElems.createOrderSelection(orderSelections.getOrderNames());
         $('.date-selector').html(div);
+        $('.category-selector').html(div2);
+        console.log(filters.getFilesFromDay('2016-11-08'));
+
         console.log('*********Koniec**********');
     })
     .fail(function (error) {

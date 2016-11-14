@@ -95,10 +95,15 @@ body nav ul li,
 body main,
 body main .faxes-content,
 body main .faxes-content .menu-months .date-selector,
+body main .faxes-content .menu-months .category-selector,
 body main .faxes-content .menu-months .date-selector button,
+body main .faxes-content .menu-months .category-selector button,
 body main .faxes-content .menu-months .date-selector ul,
+body main .faxes-content .menu-months .category-selector ul,
 body main .faxes-content .menu-months .date-selector ul li,
+body main .faxes-content .menu-months .category-selector ul li,
 body main .faxes-content .menu-months .date-selector ul li a,
+body main .faxes-content .menu-months .category-selector ul li a,
 body main .faxes-content .menu-months .show-menu,
 body main .faxes-content .main-content {
   margin: 0;
@@ -113,10 +118,15 @@ body nav ul,
 body nav ul li,
 body main,
 body main .faxes-content .menu-months .date-selector,
+body main .faxes-content .menu-months .category-selector,
 body main .faxes-content .menu-months .date-selector button,
+body main .faxes-content .menu-months .category-selector button,
 body main .faxes-content .menu-months .date-selector ul,
+body main .faxes-content .menu-months .category-selector ul,
 body main .faxes-content .menu-months .date-selector ul li,
+body main .faxes-content .menu-months .category-selector ul li,
 body main .faxes-content .menu-months .date-selector ul li a,
+body main .faxes-content .menu-months .category-selector ul li a,
 body main .faxes-content .menu-months .show-menu {
   display: block;
   box-sizing: border-box;
@@ -234,7 +244,8 @@ body main .faxes-content .menu-months {
     vertical-align: top;
   }
 }
-body main .faxes-content .menu-months .date-selector {
+body main .faxes-content .menu-months .date-selector,
+body main .faxes-content .menu-months .category-selector {
   width: 85%;
   margin-left: auto;
   margin-right: auto;
@@ -242,11 +253,13 @@ body main .faxes-content .menu-months .date-selector {
   display: none;
 }
 @media screen and (min-width: 700px) {
-  body main .faxes-content .menu-months .date-selector {
+  body main .faxes-content .menu-months .date-selector,
+  body main .faxes-content .menu-months .category-selector {
     display: block;
   }
 }
-body main .faxes-content .menu-months .date-selector button {
+body main .faxes-content .menu-months .date-selector button,
+body main .faxes-content .menu-months .category-selector button {
   font-family: 'Roboto', sans-serif;
   text-align: center;
   text-decoration: underline;
@@ -258,18 +271,22 @@ body main .faxes-content .menu-months .date-selector button {
   font-weight: 900;
   padding: 1em;
 }
-body main .faxes-content .menu-months .date-selector button:nth-of-type(1) {
+body main .faxes-content .menu-months .date-selector button:nth-of-type(1),
+body main .faxes-content .menu-months .category-selector button:nth-of-type(1) {
   margin-bottom: 0.6em;
 }
-body main .faxes-content .menu-months .date-selector ul {
+body main .faxes-content .menu-months .date-selector ul,
+body main .faxes-content .menu-months .category-selector ul {
   list-style: none;
   width: 100%;
   padding-bottom: 0.5em;
 }
-body main .faxes-content .menu-months .date-selector ul li {
+body main .faxes-content .menu-months .date-selector ul li,
+body main .faxes-content .menu-months .category-selector ul li {
   width: 100%;
 }
-body main .faxes-content .menu-months .date-selector ul li a {
+body main .faxes-content .menu-months .date-selector ul li a,
+body main .faxes-content .menu-months .category-selector ul li a {
   font-family: 'Roboto', sans-serif;
   color: #33691E;
   background-color: #C5E1A5;
@@ -278,11 +295,13 @@ body main .faxes-content .menu-months .date-selector ul li a {
   padding: 1.2em;
   width: 100%;
 }
-body main .faxes-content .menu-months .date-selector ul li a::before {
+body main .faxes-content .menu-months .date-selector ul li a::before,
+body main .faxes-content .menu-months .category-selector ul li a::before {
   content: '>>>';
   padding: 0 0.3em;
 }
-body main .faxes-content .menu-months .date-selector ul li a:hover {
+body main .faxes-content .menu-months .date-selector ul li a:hover,
+body main .faxes-content .menu-months .category-selector ul li a:hover {
   color: #C5E1A5;
   background-color: #33691E;
 }
@@ -367,7 +386,7 @@ body main .faxes-content .main-content .file-container ul {
   border: 0;
   display: block;
   box-sizing: border-box;
-  with: 100%;
+  width: 100%;
   list-style: none;
 }
 body main .faxes-content .main-content .file-container ul li {
@@ -378,9 +397,9 @@ body main .faxes-content .main-content .file-container ul li {
   border: 0;
   display: block;
   box-sizing: border-box;
-  with: 100%;
+  width: 100%;
   color: #33691E;
-  background-color: #F1F8E9;
+  background-color: #DCEDC8;
 }
 body main .faxes-content .main-content .file-container::after {
   clear: both;
