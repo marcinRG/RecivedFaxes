@@ -14,7 +14,12 @@ $.when(dataService.getData(settings.routes.pdfsRoute,
         var div = menuElems.createMenuDateFilters(filters.getDateFilters());
         var orderSelections = dataFilters.FilesWithOrderSelection(data);
         var div2 = menuElems.createOrderSelection(orderSelections.getOrderNames());
-        $('.date-selector').html(div);
+
+        var dateElems = $('.date-selector');
+        dateElems.hide();
+        dateElems.html(div);
+        dateElems.show('slow');
+
         $('.category-selector').html(div2);
         console.log(filters.getFilesFromDay('2016-11-08'));
 

@@ -1,0 +1,73 @@
+@import "common";
+@import "variables";
+
+.file-container {
+  &:extend(.setToZero);
+  &:extend(.block-border-box);
+  width: 96%;
+  margin: 2%;
+  float: left;
+  text-align: center;
+
+  @media screen {
+    @media (min-width: @widthImageBreak) {
+      width: 46%;
+    }
+  }
+
+  @media screen {
+    @media (min-width: @triggerSideMenu) {
+      width: @elemSizeBig;
+    }
+  }
+
+  @media screen {
+    @media (min-width: @widthImageBreakBigger) {
+      width: @elemSizeMedium;
+    }
+  }
+
+  @media screen {
+    @media (min-width: @widthImageBreakEvenBigger) {
+      width: @elemSizeSmall;
+    }
+  }
+
+  @media screen {
+    @media (min-width: @widthImageBreakBiggest) {
+      width: @elemSizeMedium;
+    }
+  }
+
+  @media screen {
+    @media (min-width: @widthImageBreakBiggestofAll) {
+      width: @elemSizeSmall;
+    }
+  }
+
+  & img {
+    .setToZero;
+    max-width: 95%;
+  }
+
+  & ul {
+    &:extend(.setToZero);
+    &:extend(.block-border-box);
+    width: 100%;
+    list-style: none;
+
+    & li {
+      &:extend(.setToZero);
+      &:extend(.block-border-box);
+      .roboto;
+      font-size: 0.7em;
+      width: 100%;
+      color: @color900;
+      background-color: @color100;
+    }
+  }
+
+  &::after {
+    clear: both;
+  }
+}
