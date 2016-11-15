@@ -1,0 +1,28 @@
+@import "common";
+@import "variables";
+
+.loader {
+  &:extend(.setToZero);
+  &:extend(.block-border-box);
+  .roboto;
+  width:100%;
+  color: @color800;
+  font-style: italic;
+  font-weight: 300;
+  font-size:1.5em;
+  padding-bottom: 20%;
+  padding-top:10%;
+
+  text-align: center;
+
+  & p {
+    &:extend(.setToZero);
+    margin: 0.2em 0.2em;
+    text-align: center;
+  }
+
+  & img {
+    text-align: center;
+  }
+
+}
