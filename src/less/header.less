@@ -1,0 +1,44 @@
+@import "common";
+@import "variables";
+
+header {
+  &:extend(.setToZero);
+  &:extend(.block-border-box);
+  .margin-left-right-auto;
+  width: 100%;
+  background-color: @color500;
+
+  & h1 {
+    &:extend(.setToZero);
+    &:extend(.block-border-box);
+    .roboto;
+    color: white;
+    width: 100%;
+    font-size: 3rem;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 0.1em;
+    padding: 1.2em 0.5em 0.7em 0.5em;
+    text-transform: uppercase;
+
+    @media screen {
+      @media (max-width: @widthTriggerMedium) {
+        text-align: center;
+      }
+    }
+
+    & span {
+      font-size: 1.3rem;
+      font-weight: 300;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: normal;
+
+      @media screen {
+        @media (max-width: @widthTriggerMedium) {
+          display: none;
+        }
+      }
+    }
+  }
+}

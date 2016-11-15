@@ -1,0 +1,20 @@
+@import "common";
+@import "variables";
+
+body {
+  &:extend(.setToZero);
+  width: 100%;
+  background-color: white;
+  @media screen {
+    @media (min-width: @triggerMargins) {
+      .margin-left-right-auto;
+      width: 80%;
+    }
+  }
+
+  & main {
+    &:extend(.setToZero);
+    &:extend(.block-border-box);
+    width: 100%;
+  }
+}

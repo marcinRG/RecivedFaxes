@@ -1,0 +1,19 @@
+@import "common";
+@import "variables";
+
+.faxes-content {
+  &:extend(.setToZero);
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+
+  @media screen {
+    @media (min-width: @triggerSideMenu) {
+      display: table-row;
+    }
+  }
+  &::after {
+    clear: both;
+  }
+}

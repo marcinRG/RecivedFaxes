@@ -1,0 +1,47 @@
+@import "common";
+@import "variables";
+
+nav {
+  background-color: @color800;
+  &:extend(.setToZero);
+  &:extend(.block-border-box);
+  & ul {
+    &:extend(.setToZero);
+    &:extend(.block-border-box);
+    list-style: none;
+    width: 100%;
+    overflow: hidden;
+
+    & li {
+      &:extend(.setToZero);
+      &:extend(.block-border-box);
+      .roboto;
+      color: #F1F8E9;
+      text-transform: uppercase;
+      padding: 1.5em 2em 1.5em 2em;
+      font-weight: 500;
+      font-size: 0.85em;
+      float: left;
+
+      @media screen {
+        @media (max-width: @widthTriggerSmall) {
+          padding: 1.5em 1em 1.5em 1em;
+        }
+      }
+
+      &.selected {
+        color: @colorA700;
+        border-bottom: 6px solid @colorA700;
+      }
+
+      &:hover {
+        background-color: @color100;
+        color: @color800;
+      }
+    }
+
+    &::after {
+      clear: both;
+    }
+  }
+}
