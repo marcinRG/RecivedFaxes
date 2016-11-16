@@ -1,5 +1,6 @@
 'use strict';
 var dateUtils = require('../utils/date.utils');
+
 function createButton(txt) {
     var button = document.createElement('button');
     button.textContent = txt;

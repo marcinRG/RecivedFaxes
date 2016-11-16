@@ -61,7 +61,6 @@ function intialize() {
             hideLoading();
         });
     });
-
 }
 
 module.exports = {

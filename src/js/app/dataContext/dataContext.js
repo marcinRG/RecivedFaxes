@@ -1,17 +1,18 @@
 'use strict';
 
 var dataService = require('../dataService/dataService');
-var settings = require('../settings/app.settings').storageSettings;
+var settings = require('../settings/app.settings');
 
 function getFaxes() {
-    return dataService.getData(settings.pdfsRoute,
-        settings.pdfs, 'Nie udało się pobrać danych o faksach',
-        settings.expire);
+    return dataService.getData(settings.routes.pdfsRoute,
+        settings.storageAdditionalSettings.pdfs,
+        'Wystąpił błąd poczas wczytywana danych', settings.storageAdditionalSettings.expire);
 }
+
 function getOldFaxes() {
-    return dataService.getData(settings.oldPdfsRoute,
-        settings.oldPdfs, 'Nie udało się pobrać danych o starych faksach',
-        settings.expire);
+    return dataService.getData(settings.routes.oldPdfsRoute,
+        settings.storageAdditionalSettings.oldPdfs,
+        'Wystąpił błąd poczas wczytywana danych', settings.storageAdditionalSettings.expire);
 }
 
 module.exports = {
