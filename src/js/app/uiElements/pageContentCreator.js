@@ -15,6 +15,16 @@ function createFilesWithDateFiltersPage() {
         });
 }
 
+function createFileswithOrderSelectionPage() {
+    $.when(dataContext.getOldFaxes())
+        .then(function (data) {
+            return dataFilters.FilesWithOrderSelection(data);
+        })
+        .then(function (dateFilter) {
+            new PageWithOrderSelection(dateFilter);
+        });
+}
+
 function PageWithDateFilters(filter) {
     var dateMenu = $('.faxes-content').find('.date-selector');
     var mainContent = $('.faxes-content').children('.main-content');
@@ -33,8 +43,8 @@ function PageWithDateFilters(filter) {
         var buttonRecent = dateMenu.find('button[data-name="Ostatnie"]');
         buttonRecent.on('click', function () {
             mainContent.hide();
-            var val = uiCreator.createFileWrappers(filter.getRecentFiles());
-            mainContent.html(val);
+            mainContent.html(uiCreator.createFileWrappers(
+                filter.getRecentFiles()));
             mainContent.show();
         });
     }
@@ -55,9 +65,8 @@ function PageWithDateFilters(filter) {
             var elem = $(value);
             elem.on('click', function () {
                 mainContent.hide();
-                var val = uiCreator.createFileWrappers(filter.getFilesFromDay(
-                    elem.attr('data-day')));
-                mainContent.html(val);
+                mainContent.html(uiCreator.createFileWrappers(filter.getFilesFromDay(
+                    elem.attr('data-day'))));
                 mainContent.show();
             });
         });
@@ -74,10 +83,43 @@ function PageWithDateFilters(filter) {
     intialize();
 }
 
-function PageWith(){
+function PageWithOrderSelection(filter) {
+    var orderMenu = $('.oldFaxes-content').find('.category-selector');
+    var mainContent = $('.oldFaxes-content').children('.main-content');
 
+    function createMenuElems() {
+        orderMenu.hide();
+        orderMenu.html(uiCreator.createOrderSelection(filter.getOrderNames()));
+        orderMenu.show();
+    }
+
+    function createButtonHandlers() {
+        var buttons = orderMenu.find('button');
+        $.each(buttons, function (index, value) {
+            var elem = $(value);
+            elem.on('click', function () {
+                console.log(elem.attr('data-name'));
+                mainContent.hide();
+                mainContent.html(uiCreator.createFileWrappers(
+                    filter.sortFilesBy(elem.attr('data-name'))));
+                mainContent.show();
+            });
+        });
+    }
+
+    function intialize() {
+        createMenuElems();
+        createButtonHandlers();
+        mainContent.hide();
+        mainContent.html(uiCreator.createFileWrappers(
+            filter.getRecentFiles()));
+        mainContent.show();
+    }
+
+    intialize();
 }
 
 module.exports = {
-    createFilesWithDateFiltersPage: createFilesWithDateFiltersPage
+    createFilesWithDateFiltersPage: createFilesWithDateFiltersPage,
+    createFileswithOrderSelectionPage: createFileswithOrderSelectionPage
 };

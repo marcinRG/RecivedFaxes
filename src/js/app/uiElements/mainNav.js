@@ -73,8 +73,7 @@ function NavBarControls() {
     function addHandlerToOldFaxesElem() {
         oldfaxesNav.on('click', function () {
             $.when(beforePageSet())
-                .then(function () {
-                })
+                .then(pageCreator.createFileswithOrderSelectionPage())
                 .then(afterPageSet(oldfaxesNav));
         });
     }
