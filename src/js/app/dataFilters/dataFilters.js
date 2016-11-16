@@ -13,6 +13,10 @@ function intializeFileCollection(files) {
 function FilesListWithDateFilter(data) {
     var files = intializeFileCollection(data);
 
+    function getRecentFiles() {
+        return files.slice(0,10);
+    }
+
     function getDateFilters() {
         return _.chain(files)
             .groupBy(getMonthNameYear)
@@ -25,15 +29,16 @@ function FilesListWithDateFilter(data) {
             .value();
     }
 
-    function getFilesFormDay(dateString) {
+    function getFilesFromDay(dateString) {
         return _.filter(files, function (value) {
             return (dateUtils.date2string(value.date) === dateString);
         });
     }
 
     return {
+        getRecentFiles:getRecentFiles,
         getDateFilters: getDateFilters,
-        getFilesFromDay: getFilesFormDay
+        getFilesFromDay: getFilesFromDay
     };
 }
 
@@ -64,9 +69,8 @@ function FilesListWithOrderSelection(data) {
         lastOrder.sort = lastOrder.sort === 'asc' ? 'desc' : 'asc';
     }
 
-    function getRecent() {
-        console.log('Tutaj będzie funckcja' +
-            'która zwraca ostatnie');
+    function getRecentFiles() {
+        return files.slice(0,10);
     }
 
     function sortFilesBy(sortName) {
@@ -77,7 +81,7 @@ function FilesListWithOrderSelection(data) {
     return {
         getOrderNames: getOrderNames,
         sortFilesBy: sortFilesBy,
-        getRecent:getRecent
+        getRecentFiles:getRecentFiles
     };
 }
 

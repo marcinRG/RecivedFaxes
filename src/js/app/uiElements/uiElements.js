@@ -3,12 +3,14 @@ var dateUtils = require('../utils/date.utils');
 
 function createButton(txt) {
     var button = document.createElement('button');
+    button.setAttribute('data-name', txt);
     button.textContent = txt;
     return button;
 }
 
 function createlistDateElem(value) {
     var li = document.createElement('li');
+    li.setAttribute('data-day',value);
     var link = document.createElement('a');
     link.textContent = value;
     li.appendChild(link);
@@ -66,7 +68,7 @@ function createDivFileWrapper(fileProperties) {
     img.setAttribute('src', 'images/pdf.png');
     div.classList.add('file-container');
     div.appendChild(img);
-    div.appencChild(createUnorderedListForFileWrapper(fileProperties));
+    div.appendChild(createUnorderedListForFileWrapper(fileProperties));
     return div;
 }
 

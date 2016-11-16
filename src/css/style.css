@@ -253,7 +253,6 @@ nav ul::after {
   width: 85%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 0.6em;
   display: none;
 }
 @media screen and (min-width: 700px) {
@@ -274,9 +273,11 @@ nav ul::after {
   text-transform: uppercase;
   font-weight: 900;
   padding: 1em;
+  outline: 0;
 }
 .menu .date-selector button:nth-of-type(1),
 .menu .category-selector button:nth-of-type(1) {
+  margin-top: 0.6em;
   margin-bottom: 0.6em;
 }
 .menu .date-selector ul,
@@ -387,7 +388,8 @@ nav ul::after {
 }
 @media screen and (min-width: 700px) {
   .faxes-content {
-    display: table-row;
+    display: table;
+    width: 100%;
   }
 }
 .faxes-content::after {
