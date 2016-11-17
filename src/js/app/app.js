@@ -1,3 +1,10 @@
 'use strict';
+var $ = require('jquery');
+var localForage = require('localforage');
+
+var settings = require('./settings/app.settings').storageConfig;
 var navElem = require('./uiElements/mainNav')();
-navElem.start();
+
+$.when(localForage.config(settings)).then(function () {
+    navElem.start();
+});

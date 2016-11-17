@@ -34,12 +34,6 @@ function NavBarControls() {
         pages[name].show('slow');
     }
 
-    function removeHiddenClass() {
-        pages.faxes.removeClass('hidden');
-        pages.oldFaxes.removeClass('hidden');
-        pages.settings.removeClass('hidden');
-    }
-
     function removeSelectedFromAllNavElems() {
         $.each(navElements, function (index) {
             $(navElements[index]).removeClass('selected');
@@ -90,7 +84,6 @@ function NavBarControls() {
     function intialize() {
         hideLoading();
         hideAll();
-        removeHiddenClass();
         addHandlerToFaxesElem();
         addHandlerToOldFaxesElem();
         addHandlerToSettingsElem();
