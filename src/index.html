@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Przykładowa apka</title>
+    <title>Apka odebrane faksy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -12,7 +12,7 @@
 </head>
 <body>
 <header class="header">
-    <h1>Faksy<span>strona do wyświetlania odebranych faksów</span></h1>
+    <h1 id="gora">Faksy<span>strona do wyświetlania odebranych faksów</span></h1>
 </header>
 <nav>
     <ul>
@@ -25,7 +25,7 @@
     <div class="faxes-content">
         <div class="menu">
             <div class="date-selector"></div>
-            <button class="show-menu">V</button>
+            <button class="show-menu">&#9660;</button>
         </div>
         <div class="main-content">
         </div>
@@ -33,7 +33,7 @@
     <div class="oldFaxes-content">
         <div class="menu">
             <div class="category-selector"></div>
-            <button class="show-menu">V</button>
+            <button class="show-menu">&#9660;</button>
         </div>
         <div class="main-content">
         </div>
@@ -41,7 +41,7 @@
     <div class="settings-content"></div>
     <div class="loader"><p class="message">Ładowanie, proszę czekać … </p><img src="images/ajax-loader.gif"/></div>
 </main>
-<footer>&copy; Marcin Guszpit 2016</footer>
+<footer><a href="#gora">do góry &#9650;</a></footer>
 
 <!-- inject:js -->
 <script src="js/bundle.js"></script>

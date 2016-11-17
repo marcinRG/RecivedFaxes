@@ -3,8 +3,9 @@ var $ = require('jquery');
 
 function changeOpacity(elem) {
     elem
+        .show()
         .css({opacity: 0})
-        .animate({opacity: 1}, 100, 'swing');
+        .animate({opacity: 1}, 1500, 'swing');
 }
 
 function rotateToDown(elem) {
@@ -12,14 +13,13 @@ function rotateToDown(elem) {
 }
 
 function rotateToUp(elem) {
-    rotate(elem, 180, 0);
+    rotate(elem, 180, 360);
 }
 
 function rotate(elem, start, end) {
     $({t: start}).animate({t: end}, {
-        duration: 1000,
+        duration: 500,
         step: function (now) {
-            console.log(now);
             elem.css('transform', 'rotate(' + now + 'deg)');
         }
     });
@@ -28,5 +28,5 @@ function rotate(elem, start, end) {
 module.exports = {
     changeOpacity: changeOpacity,
     rotateToDown: rotateToDown,
-    rotateToUp: rotateToUp
+    rotateToUp: rotateToUp,
 };

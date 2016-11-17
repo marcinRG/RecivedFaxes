@@ -4,24 +4,32 @@ var $ = require('jquery');
 var dataContext = require('../dataContext/dataContext');
 var dataFilters = require('../dataFilters/dataFilters');
 var uiCreator = require('./uiElements');
+var pageController = require('./pageController');
+var anims = require('../animations/animations');
 
 function createFilesWithDateFiltersPage() {
+    pageController.showLoading();
     $.when(dataContext.getFaxes())
         .then(function (data) {
             return dataFilters.FilesWithDateFilter(data);
         })
         .then(function (dateFilter) {
+            pageController.hideLoading();
+            pageController.showPage('faxes');
             new PageWithDateFilters(dateFilter);
         });
 }
 
 function createFileswithOrderSelectionPage() {
+    pageController.showLoading();
     $.when(dataContext.getOldFaxes())
         .then(function (data) {
             return dataFilters.FilesWithOrderSelection(data);
         })
-        .then(function (dateFilter) {
-            new PageWithOrderSelection(dateFilter);
+        .then(function (orderFilter) {
+            pageController.hideLoading();
+            pageController.showPage('oldFaxes');
+            new PageWithOrderSelection(orderFilter);
         });
 }
 
@@ -45,7 +53,7 @@ function PageWithDateFilters(filter) {
             mainContent.hide();
             mainContent.html(uiCreator.createFileWrappers(
                 filter.getRecentFiles()));
-            mainContent.show();
+            anims.changeOpacity(mainContent);
         });
     }
 
@@ -54,6 +62,12 @@ function PageWithDateFilters(filter) {
         $.each(buttons, function (index, value) {
             var elem = $(value);
             elem.on('click', function () {
+                if (elem.next().is(':hidden')) {
+                    anims.rotateToDown(elem.children('span'));
+                }
+                else {
+                    anims.rotateToUp(elem.children('span'));
+                }
                 elem.next().slideToggle('slow');
             });
         });
@@ -67,7 +81,7 @@ function PageWithDateFilters(filter) {
                 mainContent.hide();
                 mainContent.html(uiCreator.createFileWrappers(filter.getFilesFromDay(
                     elem.attr('data-day'))));
-                mainContent.show();
+                anims.changeOpacity(mainContent);
             });
         });
     }
@@ -77,7 +91,7 @@ function PageWithDateFilters(filter) {
         mainContent.hide();
         mainContent.html(uiCreator.createFileWrappers(
             filter.getRecentFiles()));
-        mainContent.show();
+        mainContent.show().slideDown(1000);
     }
 
     intialize();
@@ -93,16 +107,39 @@ function PageWithOrderSelection(filter) {
         orderMenu.show();
     }
 
+    function hideSpansFromButtons() {
+        var buttons = orderMenu.find('button');
+        $.each(buttons, function (index) {
+            $(buttons[index]).children('span').hide();
+        });
+    }
+
+    function setSpanContent(span,sort) {
+        if (sort === 'desc') {
+            span.html('&#9660;');
+            return 'asc';
+        }
+        else {
+            span.html('&#9650;');
+            return 'desc';
+        }
+    }
+
     function createButtonHandlers() {
         var buttons = orderMenu.find('button');
+        hideSpansFromButtons();
         $.each(buttons, function (index, value) {
             var elem = $(value);
+            var span = elem.children('span');
+            var sort = 'asc';
             elem.on('click', function () {
-                console.log(elem.attr('data-name'));
                 mainContent.hide();
+                hideSpansFromButtons();
+                sort =setSpanContent(span,sort)
+                span.show();
                 mainContent.html(uiCreator.createFileWrappers(
                     filter.sortFilesBy(elem.attr('data-name'))));
-                mainContent.show();
+                anims.changeOpacity(mainContent);
             });
         });
     }
@@ -113,7 +150,7 @@ function PageWithOrderSelection(filter) {
         mainContent.hide();
         mainContent.html(uiCreator.createFileWrappers(
             filter.getRecentFiles()));
-        mainContent.show();
+        mainContent.show().slideDown(1000);
     }
 
     intialize();

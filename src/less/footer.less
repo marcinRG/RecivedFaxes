@@ -3,15 +3,16 @@
 
 footer {
   &:extend(.setToZero);
-  &:extend(.block-border-box);
-  .roboto;
-  color:white;
-  background-color: black;
-  padding:5em 0 0.3em 0;
-  width:100%;
-
-  font-size:0.8em;
-  font-weight: 100;
+  width: 100%;
+  padding: 5em 0 0.3em 0;
   text-align: center;
+  background-color: black;
 
+  & a {
+    .roboto;
+    color: white;
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: 100;
+  }
 }

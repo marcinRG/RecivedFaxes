@@ -23,6 +23,7 @@
     width: 85%;
     .margin-left-right-auto;
     display: none;
+    padding-bottom: 0.6em;
 
     @media screen {
       @media (min-width: @triggerSideMenu) {
@@ -44,6 +45,14 @@
       font-weight: 900;
       padding: 1em;
       outline: 0;
+
+      & span {
+          font-size: 0.7em;
+          float: right;
+          display:inline-block;
+          width:1em;
+          padding: 0.2em;
+      }
 
       &:nth-of-type(1) {
         margin-top: 0.6em;

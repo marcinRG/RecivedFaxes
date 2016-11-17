@@ -2,36 +2,16 @@
 
 var $ = require('jquery');
 var pageCreator = require('./pageContentCreator');
+var pageController = require('./pageController');
 
 function NavBarControls() {
-    var pages = {
-        faxes: $('.faxes-content'),
-        oldFaxes: $('.oldFaxes-content'),
-        settings: $('.settings-content')
-    };
-
-    var loader = $('.loader');
     var navElements = $('nav ul').children();
     var faxesNav = navElements.filter('[data-name="faxes"]');
-    var oldfaxesNav = navElements.filter('[data-name="oldFaxes"]');
+    var oldFaxesNav = navElements.filter('[data-name="oldFaxes"]');
     var settingsNav = navElements.filter('[data-name="settings"]');
 
-    function hideAll() {
-        pages.faxes.hide();
-        pages.oldFaxes.hide();
-        pages.settings.hide();
-    }
-
-    function showLoading() {
-        loader.show('fast');
-    }
-
-    function hideLoading() {
-        loader.hide();
-    }
-
-    function showPage(name) {
-        pages[name].show('slow');
+    function setSelectedNavElem(elem) {
+        elem.addClass('selected');
     }
 
     function removeSelectedFromAllNavElems() {
@@ -40,20 +20,13 @@ function NavBarControls() {
         });
     }
 
-    function setSelected(elem) {
-        elem.addClass('selected');
-    }
-
     function beforePageSet() {
-        hideAll();
-        showLoading();
+        pageController.hideAll();
         removeSelectedFromAllNavElems();
     }
 
     function afterPageSet(elem) {
-        hideLoading();
-        setSelected(elem);
-        showPage(elem.attr('data-name'));
+        setSelectedNavElem(elem);
     }
 
     function addHandlerToFaxesElem() {
@@ -65,10 +38,10 @@ function NavBarControls() {
     }
 
     function addHandlerToOldFaxesElem() {
-        oldfaxesNav.on('click', function () {
+        oldFaxesNav.on('click', function () {
             $.when(beforePageSet())
                 .then(pageCreator.createFileswithOrderSelectionPage())
-                .then(afterPageSet(oldfaxesNav));
+                .then(afterPageSet(oldFaxesNav));
         });
     }
 
@@ -82,8 +55,8 @@ function NavBarControls() {
     }
 
     function intialize() {
-        hideLoading();
-        hideAll();
+        pageController.hideAll();
+        pageController.hideLoading();
         addHandlerToFaxesElem();
         addHandlerToOldFaxesElem();
         addHandlerToSettingsElem();

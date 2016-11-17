@@ -8,9 +8,15 @@ function createButton(txt) {
     return button;
 }
 
+function addAdditonalSpan(button) {
+    var span = document.createElement('span');
+    span.innerHTML = '&#9660;';
+    button.appendChild(span);
+}
+
 function createlistDateElem(value) {
     var li = document.createElement('li');
-    li.setAttribute('data-day',value);
+    li.setAttribute('data-day', value);
     var link = document.createElement('a');
     link.textContent = value;
     li.appendChild(link);
@@ -48,7 +54,9 @@ function createMenuDatesFilters(dataFilterValues) {
     var buttonRecent = createButton('Ostatnie');
     div.appendChild(buttonRecent);
     dataFilterValues.forEach(function (value) {
-        div.appendChild(createButton(value.monthYear));
+        var button = createButton(value.monthYear);
+        addAdditonalSpan(button);
+        div.appendChild(button);
         div.appendChild(createUnorderedListForDates(value.days));
     });
     return div;
@@ -57,7 +65,9 @@ function createMenuDatesFilters(dataFilterValues) {
 function createOrderSelection(orderValues) {
     var div = document.createElement('div');
     orderValues.forEach(function (value) {
-        div.appendChild(createButton(value));
+        var button = createButton(value);
+        addAdditonalSpan(button);
+        div.appendChild(button);
     });
     return div;
 }
@@ -69,6 +79,9 @@ function createDivFileWrapper(fileProperties) {
     div.classList.add('file-container');
     div.appendChild(img);
     div.appendChild(createUnorderedListForFileWrapper(fileProperties));
+    div.addEventListener('click', function () {
+        window.open(window.location.origin + fileProperties.path, '_blank');
+    }, false);
     return div;
 }
 
