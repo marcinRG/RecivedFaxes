@@ -5,8 +5,11 @@ var localForage = require('localforage');
 var localStorageAdditonalSettings = {
     pdfs: storagePrefix + 'pdfs',
     oldPdfs: storagePrefix + 'oldPdfs',
-    expire: {minutes: 10},
+    expire: {minutes: 10}
+};
 
+var website =  {
+    breakPoint: 700
 };
 
 var storageConfig = {
@@ -26,5 +29,6 @@ var routes = {
 module.exports = {
     storageAdditionalSettings: localStorageAdditonalSettings,
     routes : routes,
-    storageConfig:storageConfig
+    storageConfig:storageConfig,
+    website:website
 };

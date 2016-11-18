@@ -114,7 +114,7 @@ function PageWithOrderSelection(filter) {
         });
     }
 
-    function setSpanContent(span,sort) {
+    function setSpanContent(span, sort) {
         if (sort === 'desc') {
             span.html('&#9660;');
             return 'asc';
@@ -135,7 +135,7 @@ function PageWithOrderSelection(filter) {
             elem.on('click', function () {
                 mainContent.hide();
                 hideSpansFromButtons();
-                sort =setSpanContent(span,sort)
+                sort = setSpanContent(span, sort);
                 span.show();
                 mainContent.html(uiCreator.createFileWrappers(
                     filter.sortFilesBy(elem.attr('data-name'))));
