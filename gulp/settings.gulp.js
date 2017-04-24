@@ -19,7 +19,7 @@ var paths = {
     allJs: ['./*.js', serverFolder + '**/*.js', jsAppFolder + '**/*.js'],
     jsAppFiles: [jsAppFolder + '**/*.js'],
     jsFile: jsAppFolder + 'app.js',
-    compiledJs: devFolder + 'js/bundle.js',
+    compiledJs: devFolder + 'bundle.js',
     fontsSrc: devFolder + 'fonts/**/*.*',
     imageSrc: devFolder + 'images/**/*.*',
 

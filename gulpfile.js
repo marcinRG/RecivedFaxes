@@ -8,9 +8,10 @@ var del = require('del');
 var settings = require('./gulp/settings.gulp');
 
 //kompilacja css z less
+
 gulp.task('less-compile', ['clean-styles'], function () {
     msg('Kompilacja plików less -> css');
-    return gulp.src(settings.app.lessStyles)
+    return gulp.src(settings.app.lessFile)
         .pipe($.plumber())
         .pipe($.less())
         .pipe($.autoprefixer({browsers: ['last 3 version', '> 3%']}))

@@ -36,7 +36,7 @@ function processFilesFromDirectory(pathToFiles, iteratee, processMethod, transfo
     });
 }
 
-function tranformResults(files) {
+function transformResults(files) {
     return files.map(addFolder);
 }
 
@@ -63,7 +63,7 @@ function processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee,
 
 function readAllFilesFromDirectory(pathToFiles, routeToFile, iteratee, callback) {
     processAllFilesFromDirectiory(pathToFiles, routeToFile, iteratee, async.concat,
-        processFilesFromDirectory, tranformResults, callback);
+        processFilesFromDirectory, transformResults, callback);
 }
 
 module.exports = {

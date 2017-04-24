@@ -32,6 +32,7 @@
     "gulp-print": "^2.0.1",
     "gulp-task-listing": "^1.0.1",
     "gulp-uglify": "^2.0.0",
+    "gulp-useref": "^3.1.2",
     "gulp-util": "^3.0.7",
     "jasmine-ajax": "^3.2.0",
     "jasmine-core": "^2.4.1",
