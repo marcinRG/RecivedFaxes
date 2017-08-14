@@ -26,6 +26,7 @@
     "gulp-jscs": "^4.0.0",
     "gulp-jshint": "^2.0.1",
     "gulp-less": "^3.1.0",
+    "gulp-lesshint": "^4.0.0",
     "gulp-load-plugins": "^1.2.4",
     "gulp-nodemon": "^2.2.1",
     "gulp-plumber": "^1.1.0",

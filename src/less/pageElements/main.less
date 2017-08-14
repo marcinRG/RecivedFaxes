@@ -1,0 +1,166 @@
+@import "../variables";
+@import "../mixins";
+
+.main {
+  &:extend(.block-border-box);
+  width: 100%;
+}
+
+.faxes-content {
+  .setToZero;
+  .block-border-box;
+  .overflow-clearBoth;
+  display: block;
+  width: 100%;
+
+  @media screen {
+    @media (min-width: @triggerSideMenu) {
+      display: table;
+    }
+  }
+}
+
+.main-content {
+  &:extend(.setToZero);
+  &:extend(.block-border-box);
+  background-color: white;
+  float: left;
+  overflow: hidden;
+  width: 100%;
+
+  @media screen {
+    @media (min-width: @triggerSideMenu) {
+      float: none;
+      width: auto;
+      display: table-cell;
+    }
+  }
+}
+
+.loader {
+  .block-border-box;
+  color: @color800;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.5em;
+  padding-bottom: 20%;
+  padding-top: 10%;
+  text-align: center;
+  width: 100%;
+
+  p {
+    margin: 0.2em 0.2em;
+    text-align: center;
+  }
+
+  img {
+    text-align: center;
+  }
+}
+
+.menu {
+  background-color: @color700;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+
+  @media screen {
+    @media (min-width: @triggerSideMenu) {
+      float: none;
+      display: table-cell;
+      vertical-align: top;
+      width: @menu-width;
+    }
+  }
+
+  .show-menu {
+    .block-border-box;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: 200;
+    background-color: @color700;
+    padding: 1.2em;
+    outline: none;
+
+    @media screen {
+      @media (min-width: @triggerSideMenu) {
+        display: none;
+      }
+    }
+  }
+}
+
+.date-selector,
+.category-selector {
+  .margin-left-right-auto;
+  box-sizing: border-box;
+  display: block;
+  padding: 0.6em 0;
+  width: 85%;
+
+  @media screen {
+    @media (min-width: @triggerSideMenu) {
+      display: block;
+    }
+  }
+
+  button {
+    .block-border-box;
+    text-align: center;
+    text-decoration: underline;
+    width: 100%;
+    background-color: @color100;
+    color: @color900;
+    font-size: 1em;
+    text-transform: uppercase;
+    font-weight: 900;
+    padding: 1em;
+    outline: 0;
+
+    span {
+      font-size: 0.7em;
+      float: right;
+      display: inline-block;
+      width: 1em;
+      padding: 0.2em;
+    }
+
+    &:nth-of-type(1) {
+      margin-bottom: 0.6em;
+    }
+
+  }
+
+  ul {
+    .block-border-box;
+    list-style: none;
+    width: 100%;
+    padding-bottom: 0.5em;
+
+    li {
+      .block-border-box;
+      width: 100%;
+
+      a {
+        .block-border-box;
+        color: @color900;
+        background-color: @color200;
+        text-align: left;
+        text-decoration: none;
+        padding: 1.2em;
+        width: 100%;
+
+        &::before {
+          content: '>>>';
+          padding: 0 0.3em;
+        }
+
+        &:hover {
+          color: @color200;
+          background-color: @color900;
+        }
+      }
+    }
+  }
+}

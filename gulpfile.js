@@ -5,11 +5,20 @@ var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var del = require('del');
 
-var settings = require('./gulp/settings.gulp');
+var settings = require('./gulp.settings/settings.gulp');
 
 //kompilacja css z less
 
-gulp.task('less-compile', ['clean-styles'], function () {
+//lintowanie less
+gulp.task('lint-less', ['clean-styles'], function () {
+    return gulp.src(settings.app.lessStyles).pipe($.lesshint({
+            configPath: 'lesshintrc.json'
+        }
+    )).pipe($.lesshint.reporter())
+        .pipe($.lesshint.failOnError());
+});
+
+gulp.task('less-compile', ['lint-less'], function () {
     msg('Kompilacja plików less -> css');
     return gulp.src(settings.app.lessFile)
         .pipe($.plumber())

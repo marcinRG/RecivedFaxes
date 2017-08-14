@@ -9,7 +9,7 @@ var localStorageAdditonalSettings = {
 };
 
 var website =  {
-    breakPoint: 700
+    breakPoint: 768
 };
 
 var storageConfig = {

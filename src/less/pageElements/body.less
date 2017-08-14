@@ -1,0 +1,14 @@
+@import "../variables";
+@import "../mixins";
+
+body {
+  background-color: @color50;
+  width: 100%;
+
+  @media screen {
+    @media (min-width: @triggerMargins) {
+      .margin-left-right-auto;
+      width: 80%;
+    }
+  }
+}

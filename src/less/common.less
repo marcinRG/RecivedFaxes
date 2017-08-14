@@ -1,25 +1,34 @@
-@import "fonts";
+@import 'utils/fonts';
+@import 'variables';
+@import 'mixins';
+
+.robotoFonts {
+  .customFontMixin('Roboto', 'Roboto', 400, normal, @pathRoboto);
+  .customFontMixin('Roboto', 'Roboto Italic', 400, italic, @pathRoboto);
+
+  .customFontMixin('Roboto', 'Roboto Bold', 700, normal, @pathRoboto);
+  .customFontMixin('Roboto', 'Roboto Bold Italic', 700, italic, @pathRoboto);
+
+  .customFontMixin('Roboto', 'Roboto Medium', 500, normal, @pathRoboto);
+  .customFontMixin('Roboto', 'Roboto Medium Italic', 500, italic, @pathRoboto);
+
+  .customFontMixin('Roboto', 'Roboto Light', 300, normal, @pathRoboto);
+  .customFontMixin('Roboto', 'Roboto Light Italic', 300, italic, @pathRoboto);
+
+  .customFontMixin('Roboto', 'Roboto Thin', 100, normal, @pathRoboto);
+  .customFontMixin('Roboto', 'Roboto Thin Italic', 100, italic, @pathRoboto);
+
+  .customFontMixin('Roboto', 'Roboto Black', 900, normal, @pathRoboto);
+  .customFontMixin('Roboto', 'Roboto Black Italic', 900, italic, @pathRoboto);
+}
 
 .roboto {
   font-family: 'Roboto', sans-serif;
 }
 
-.setToZero {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.block-border-box {
-  display: block;
-  box-sizing: border-box;
-}
-
-.margin-left-right-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hidden {
-  display:none!important;
+*,
+html,
+body {
+  .setToZero;
+  .roboto;
 }

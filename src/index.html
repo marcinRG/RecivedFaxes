@@ -12,36 +12,36 @@
 </head>
 <body>
 <header class="header">
-    <h1 id="gora">Faksy<span>strona do wyświetlania odebranych faksów</span></h1>
+    <h1 id="gora" class="title">Faksy<span class="sub-title">strona do wyświetlania odebranych faksów</span></h1>
 </header>
-<nav>
-    <ul>
-        <li data-name="faxes">faksy</li>
-        <li data-name="oldFaxes">stare</li>
-        <li data-name="settings">ustawienia</li>
+<nav class="navbar">
+    <ul class="menu">
+        <li data-name="faxes" class="menu-element">faksy</li>
+        <li data-name="oldFaxes" class="menu-element">stare</li>
+        <li data-name="settings" class="menu-element">ustawienia</li>
     </ul>
 </nav>
-<main>
-    <div class="faxes-content">
+<main class="main-element">
+    <section class="faxes-content hidden">
         <div class="menu">
             <div class="date-selector"></div>
             <button class="show-menu">&#9660;</button>
         </div>
         <div class="main-content">
         </div>
-    </div>
-    <div class="oldFaxes-content">
+    </section>
+    <section class="oldFaxes-content hidden">
         <div class="menu">
             <div class="category-selector"></div>
             <button class="show-menu">&#9660;</button>
         </div>
         <div class="main-content">
         </div>
-    </div>
-    <div class="settings-content"></div>
-    <div class="loader"><p class="message">Ładowanie, proszę czekać … </p><img src="images/ajax-loader.gif" alt="do góry"/></div>
+    </section>
+    <section class="settings-content hidden"></section>
+    <section class="loader"><p class="message">Ładowanie, proszę czekać … </p><img src="images/ajax-loader.gif" alt="do góry"/></section>
 </main>
-<footer><a href="#gora">do góry &#9650;</a></footer>
+<footer class="footer"><a href="#gora" class="link">do góry &#9650;</a></footer>
 <!-- build:js js/app.js -->
 <!-- inject:js -->
 <script src="bundle.js"></script>

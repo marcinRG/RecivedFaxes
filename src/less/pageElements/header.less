@@ -1,17 +1,15 @@
-@import "common";
-@import "variables";
+@import "../variables";
+@import "../mixins";
 
-header {
-  &:extend(.setToZero);
+.header {
   &:extend(.block-border-box);
   .margin-left-right-auto;
   width: 100%;
   background-color: @color500;
 
-  & h1 {
+  .title {
     &:extend(.setToZero);
     &:extend(.block-border-box);
-    .roboto;
     color: white;
     width: 100%;
     font-size: 3rem;
@@ -27,7 +25,7 @@ header {
       }
     }
 
-    & span {
+    .sub-title {
       font-size: 1.3rem;
       font-weight: 300;
       font-style: italic;

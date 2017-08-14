@@ -1,13 +1,12 @@
-@import "common";
-@import "variables";
+@import "../variables";
+@import "../mixins";
 
 .file-container {
-  &:extend(.setToZero);
-  &:extend(.block-border-box);
-  width: 96%;
-  margin: 2%;
+  .block-border-box;
   float: left;
+  margin: 2%;
   text-align: center;
+  width: 96%;
 
   @media screen {
     @media (min-width: @widthImageBreak) {
@@ -46,24 +45,21 @@
   }
 
   & img {
-    .setToZero;
+
     max-width: 95%;
   }
 
   & ul {
-    &:extend(.setToZero);
-    &:extend(.block-border-box);
-    width: 100%;
     list-style: none;
+    .block-border-box;
+    width: 100%;
 
     & li {
-      &:extend(.setToZero);
-      &:extend(.block-border-box);
-      .roboto;
+      .block-border-box;
+      background-color: @color100;
+      color: @color900;
       font-size: 0.7em;
       width: 100%;
-      color: @color900;
-      background-color: @color100;
     }
   }
 
