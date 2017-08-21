@@ -1,6 +1,6 @@
 'use strict';
 
-var dataService = require('../dataService/dataService');
+var dataService = require('./dataService');
 var settings = require('../settings/app.settings');
 
 function getFaxes() {

@@ -280,6 +280,9 @@ body {
     width: 290px;
   }
 }
+.menu button {
+  cursor: pointer;
+}
 .menu .show-menu {
   box-sizing: border-box;
   display: block;
@@ -380,6 +383,7 @@ body {
   margin: 2%;
   text-align: center;
   width: 96%;
+  cursor: pointer;
 }
 @media screen and (min-width: 640px) {
   .file-container {

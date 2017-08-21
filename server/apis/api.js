@@ -10,7 +10,7 @@ var api = express.Router();
 api.get(paths.pdfPath, function (request, response) {
     function writeTabStats(error, tabFileStats) {
         if (error) {
-            console.log('Wystąpił błąd:' + error);
+            console.log('Wystąpił błąd: ' + error);
             return;
         }
         response.status(200);
@@ -24,7 +24,7 @@ api.get(paths.pdfPath, function (request, response) {
 api.get(paths.oldPdfPaths, function (request, response) {
     function writeTabStats(error, tabFileStats) {
         if (error) {
-            console.log('Wystąpił błąd:' + error);
+            console.log('Wystąpił błąd: ' + error);
             return;
         }
         response.status(200);

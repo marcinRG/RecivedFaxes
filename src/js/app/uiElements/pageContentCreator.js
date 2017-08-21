@@ -1,53 +1,46 @@
 'use strict';
 
 var $ = require('jquery');
-var dataContext = require('../dataContext/dataContext');
+var dataContext = require('../data/dataContext');
 var dataFilters = require('../dataFilters/dataFilters');
 var uiCreator = require('./uiElements');
-var pageController = require('./pageController');
-var anims = require('../animations/animations');
+var anims = require('../utils/animations');
+
+var pageWithDateFilters = new PageWithDateFilters();
+var pageWithOrderSelection = new PageWithOrderSelection();
 
 function createFilesWithDateFiltersPage() {
-    pageController.showLoading();
-    $.when(dataContext.getFaxes())
+    return $.when(dataContext.getFaxes())
         .then(function (data) {
-            return dataFilters.FilesWithDateFilter(data);
-        })
-        .then(function (dateFilter) {
-            pageController.hideLoading();
-            pageController.showPage('faxes');
-            new PageWithDateFilters(dateFilter);
+            console.log('create with date filter');
+            var dateFilter = dataFilters.FilesWithDateFilter(data);
+            pageWithDateFilters.create(dateFilter);
         });
 }
 
 function createFileswithOrderSelectionPage() {
-    pageController.showLoading();
-    $.when(dataContext.getOldFaxes())
+    return $.when(dataContext.getOldFaxes())
         .then(function (data) {
-            return dataFilters.FilesWithOrderSelection(data);
-        })
-        .then(function (orderFilter) {
-            pageController.hideLoading();
-            pageController.showPage('oldFaxes');
-            new PageWithOrderSelection(orderFilter);
+            var orderFilter = dataFilters.FilesWithOrderSelection(data);
+            pageWithOrderSelection.create(orderFilter);
         });
 }
 
-function PageWithDateFilters(filter) {
+function PageWithDateFilters() {
     var dateMenu = $('.faxes-content').find('.date-selector');
     var mainContent = $('.faxes-content').children('.main-content');
 
-    function createMenuElems() {
+    function createMenuElems(filter) {
         dateMenu.hide();
         dateMenu.html(uiCreator.createMenuDateFilters(filter.getDateFilters()));
         dateMenu.find('ul').hide();
-        createRecentButtonHandler();
+        createRecentButtonHandler(filter);
         createMonthYearButtonHandlers();
-        createLiDateHandlers();
+        createLiDateHandlers(filter);
         dateMenu.show();
     }
 
-    function createRecentButtonHandler() {
+    function createRecentButtonHandler(filter) {
         var buttonRecent = dateMenu.find('button[data-name="Ostatnie"]');
         buttonRecent.on('click', function () {
             mainContent.hide();
@@ -73,7 +66,7 @@ function PageWithDateFilters(filter) {
         });
     }
 
-    function createLiDateHandlers() {
+    function createLiDateHandlers(filter) {
         var days = dateMenu.find('li[data-day]');
         $.each(days, function (index, value) {
             var elem = $(value);
@@ -86,22 +79,24 @@ function PageWithDateFilters(filter) {
         });
     }
 
-    function intialize() {
-        createMenuElems();
+    function intialize(filter) {
+        createMenuElems(filter);
         mainContent.hide();
         mainContent.html(uiCreator.createFileWrappers(
             filter.getRecentFiles()));
         mainContent.show().slideDown(1000);
     }
 
-    intialize();
+    return {
+        create: intialize
+    };
 }
 
-function PageWithOrderSelection(filter) {
+function PageWithOrderSelection() {
     var orderMenu = $('.oldFaxes-content').find('.category-selector');
     var mainContent = $('.oldFaxes-content').children('.main-content');
 
-    function createMenuElems() {
+    function createMenuElems(filter) {
         orderMenu.hide();
         orderMenu.html(uiCreator.createOrderSelection(filter.getOrderNames()));
         orderMenu.show();
@@ -125,7 +120,7 @@ function PageWithOrderSelection(filter) {
         }
     }
 
-    function createButtonHandlers() {
+    function createButtonHandlers(filter) {
         var buttons = orderMenu.find('button');
         hideSpansFromButtons();
         $.each(buttons, function (index, value) {
@@ -144,16 +139,18 @@ function PageWithOrderSelection(filter) {
         });
     }
 
-    function intialize() {
-        createMenuElems();
-        createButtonHandlers();
+    function intialize(filter) {
+        createMenuElems(filter);
+        createButtonHandlers(filter);
         mainContent.hide();
         mainContent.html(uiCreator.createFileWrappers(
             filter.getRecentFiles()));
         mainContent.show().slideDown(1000);
     }
 
-    intialize();
+    return {
+        create: intialize
+    };
 }
 
 module.exports = {

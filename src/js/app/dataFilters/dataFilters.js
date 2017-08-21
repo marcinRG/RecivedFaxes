@@ -43,7 +43,7 @@ function FilesListWithDateFilter(data) {
 }
 
 function FilesListWithOrderSelection(data) {
-    var files = intializeFileCollection(data);
+    var files = intializeFileCollection(data) || [];
     var lastOrder = {};
     var orderMethods = [
         {name: 'Datami utworzenia', value: 'date', sort: 'asc'},
