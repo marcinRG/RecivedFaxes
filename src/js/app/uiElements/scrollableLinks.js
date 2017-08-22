@@ -30,4 +30,4 @@ function ScrollableLinks() {
     };
 }
 
-module.exports = ScrollableLinks;
+module.exports = new ScrollableLinks();

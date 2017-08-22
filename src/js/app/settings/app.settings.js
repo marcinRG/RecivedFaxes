@@ -9,8 +9,9 @@ var localStorageAdditonalSettings = {
 };
 
 var website =  {
-    breakPoint: 760,
-    scrollTime: 1500
+    breakPoint: 700,
+    scrollTime: 1500,
+    menuSlideTime: 1000
 };
 
 var storageConfig = {

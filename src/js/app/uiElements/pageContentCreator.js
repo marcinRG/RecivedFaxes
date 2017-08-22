@@ -25,8 +25,16 @@ function createFileswithOrderSelectionPage() {
         });
 }
 
+function createMenuButton(parent) {
+    var button = document.createElement('button');
+    $(button).addClass('show-menu');
+    $(button).html('&#9660;');
+    parent.append(button);
+}
+
 function PageWithDateFilters() {
     var dateMenu = $('.faxes-content').find('.date-selector');
+    var menu = $('.faxes-content').find('.menu');
     var mainContent = $('.faxes-content').children('.main-content');
 
     function createMenuElems(filter) {
@@ -36,6 +44,7 @@ function PageWithDateFilters() {
         createRecentButtonHandler(filter);
         createMonthYearButtonHandlers();
         createLiDateHandlers(filter);
+        //createMenuButton(menu);
         dateMenu.show();
     }
 
