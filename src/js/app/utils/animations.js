@@ -1,5 +1,13 @@
 'use strict';
 var $ = require('jquery');
+var bodyObj = $('html, body');
+
+function scrollTo(elementTo, scrollTime) {
+
+    bodyObj.animate({
+        scrollTop: elementTo.offset().top
+    }, scrollTime);
+}
 
 function changeOpacity(elem) {
     elem
@@ -29,4 +37,5 @@ module.exports = {
     changeOpacity: changeOpacity,
     rotateToDown: rotateToDown,
     rotateToUp: rotateToUp,
+    scrollTo: scrollTo
 };

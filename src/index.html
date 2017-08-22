@@ -11,9 +11,11 @@
     <!-- endbuild -->
 </head>
 <body>
+
 <header class="header">
     <h1 id="gora" class="title">Faksy<span class="sub-title">strona do wyświetlania odebranych faksów</span></h1>
 </header>
+
 <nav class="navbar">
     <ul class="menu">
         <li data-name="faxes" class="menu-element">faksy</li>
@@ -21,6 +23,7 @@
         <li data-name="settings" class="menu-element">ustawienia</li>
     </ul>
 </nav>
+
 <main class="main-element">
     <section class="faxes-content hidden">
         <div class="menu">
@@ -41,7 +44,7 @@
     </section>
     <section class="loader"><p class="message">Ładowanie, proszę czekać … </p><img src="images/ajax-loader.gif" alt="do góry"/></section>
 </main>
-<footer class="footer"><a href="#gora" class="link">do góry &#9650;</a></footer>
+<footer class="footer"><a href="#gora" data-scrollable-link class="link">do góry &#9650;</a></footer>
 <!-- build:js js/app.js -->
 <!-- inject:js -->
 <script src="bundle.js"></script>

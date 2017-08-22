@@ -12,7 +12,6 @@ var pageWithOrderSelection = new PageWithOrderSelection();
 function createFilesWithDateFiltersPage() {
     return $.when(dataContext.getFaxes())
         .then(function (data) {
-            console.log('create with date filter');
             var dateFilter = dataFilters.FilesWithDateFilter(data);
             pageWithDateFilters.create(dateFilter);
         });

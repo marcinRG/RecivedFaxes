@@ -353,6 +353,7 @@ body {
 .category-selector ul li {
   box-sizing: border-box;
   display: block;
+  cursor: pointer;
   width: 100%;
 }
 .date-selector ul li a,
