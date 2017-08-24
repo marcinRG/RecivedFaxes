@@ -87,9 +87,13 @@
     padding: 1.2em;
     outline: none;
 
+    span {
+      display: inline-block;
+    }
+
     @media screen {
       @media (min-width: @triggerSideMenu) {
-        display: none;
+        //display: none;
       }
     }
   }
@@ -99,7 +103,7 @@
 .category-selector {
   .margin-left-right-auto;
   box-sizing: border-box;
-  display: block;
+  display: none;
   padding: 0.6em 0;
   width: 85%;
 

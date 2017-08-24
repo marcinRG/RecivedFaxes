@@ -5,6 +5,13 @@ var dataContext = require('../data/dataContext');
 var dataFilters = require('../dataFilters/dataFilters');
 var uiCreator = require('./uiElements');
 var anims = require('../utils/animations');
+var navbarButtons = require('../uiElements/navBarButtons');
+
+// navbarButton.create($('.faxes-content .show-menu'),
+//     $('.faxes-content .date-selector'));
+// navbarButton.create($('.oldFaxes-content .show-menu'),
+//     $('.oldFaxes-content .category-selector'));
+//var navbarButton = require('./uiElements/navBarButtons');
 
 var pageWithDateFilters = new PageWithDateFilters();
 var pageWithOrderSelection = new PageWithOrderSelection();
@@ -25,27 +32,26 @@ function createFileswithOrderSelectionPage() {
         });
 }
 
-function createMenuButton(parent) {
-    var button = document.createElement('button');
-    $(button).addClass('show-menu');
-    $(button).html('&#9660;');
-    parent.append(button);
+function createMenuButton(button, menu) {
+    var span = document.createElement('span');
+    $(span).html('&#9660;');
+    $(button).html('');
+    $(button).append(span);
+    navbarButtons.create($(button), menu);
 }
 
 function PageWithDateFilters() {
     var dateMenu = $('.faxes-content').find('.date-selector');
-    var menu = $('.faxes-content').find('.menu');
     var mainContent = $('.faxes-content').children('.main-content');
+    var button = $('.faxes-content').find('.show-menu');
 
     function createMenuElems(filter) {
-        dateMenu.hide();
         dateMenu.html(uiCreator.createMenuDateFilters(filter.getDateFilters()));
         dateMenu.find('ul').hide();
         createRecentButtonHandler(filter);
         createMonthYearButtonHandlers();
         createLiDateHandlers(filter);
-        //createMenuButton(menu);
-        dateMenu.show();
+        createMenuButton(button, dateMenu);
     }
 
     function createRecentButtonHandler(filter) {
@@ -103,11 +109,11 @@ function PageWithDateFilters() {
 function PageWithOrderSelection() {
     var orderMenu = $('.oldFaxes-content').find('.category-selector');
     var mainContent = $('.oldFaxes-content').children('.main-content');
+    var button = $('.oldFaxes-content').find('.show-menu');
 
     function createMenuElems(filter) {
-        orderMenu.hide();
         orderMenu.html(uiCreator.createOrderSelection(filter.getOrderNames()));
-        orderMenu.show();
+        createMenuButton(button, orderMenu);
     }
 
     function hideSpansFromButtons() {
