@@ -1,12 +1,9 @@
 'use strict';
-
 var $ = require('jquery');
 var dataContext = require('../data/dataContext');
 var dataFilters = require('../dataFilters/dataFilters');
 var uiCreator = require('./uiElements');
 var anims = require('../utils/animations');
-var navbarButtons = require('../uiElements/navBarButtons');
-
 var pageWithDateFilters = new PageWithDateFilters();
 var pageWithOrderSelection = new PageWithOrderSelection();
 
@@ -26,16 +23,9 @@ function createFileswithOrderSelectionPage() {
         });
 }
 
-function createMenuButton(buttonHolder, menuElem) {
-    var btn = uiCreator.createMenuButton();
-    buttonHolder.html($(btn));
-    var btnEvenets = new navbarButtons($(btn));
-}
-
 function PageWithDateFilters() {
     var dateMenu = $('.faxes-content').find('.date-selector');
     var mainContent = $('.faxes-content').children('.main-content');
-    var buttonDiv = $('.faxes-content').find('.menu-button-holder');
 
     function createMenuElems(filter) {
         dateMenu.html(uiCreator.createMenuDateFilters(filter.getDateFilters()));
@@ -43,7 +33,6 @@ function PageWithDateFilters() {
         createRecentButtonHandler(filter);
         createMonthYearButtonHandlers();
         createLiDateHandlers(filter);
-        createMenuButton(buttonDiv, dateMenu);
     }
 
     function createRecentButtonHandler(filter) {
@@ -93,7 +82,6 @@ function PageWithDateFilters() {
             filter.getRecentFiles()));
         mainContent.show().slideDown(1000);
     }
-
     return {
         create: intialize
     };
@@ -102,11 +90,9 @@ function PageWithDateFilters() {
 function PageWithOrderSelection() {
     var orderMenu = $('.oldFaxes-content').find('.category-selector');
     var mainContent = $('.oldFaxes-content').children('.main-content');
-    var buttonDiv = $('.oldFaxes-content').find('.menu-button-holder');
 
     function createMenuElems(filter) {
         orderMenu.html(uiCreator.createOrderSelection(filter.getOrderNames()));
-        createMenuButton(buttonDiv, orderMenu);
     }
 
     function hideSpansFromButtons() {
