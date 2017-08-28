@@ -7,12 +7,6 @@ var uiCreator = require('./uiElements');
 var anims = require('../utils/animations');
 var navbarButtons = require('../uiElements/navBarButtons');
 
-// navbarButton.create($('.faxes-content .show-menu'),
-//     $('.faxes-content .date-selector'));
-// navbarButton.create($('.oldFaxes-content .show-menu'),
-//     $('.oldFaxes-content .category-selector'));
-//var navbarButton = require('./uiElements/navBarButtons');
-
 var pageWithDateFilters = new PageWithDateFilters();
 var pageWithOrderSelection = new PageWithOrderSelection();
 
@@ -32,18 +26,16 @@ function createFileswithOrderSelectionPage() {
         });
 }
 
-function createMenuButton(button, menu) {
-    var span = document.createElement('span');
-    $(span).html('&#9660;');
-    $(button).html('');
-    $(button).append(span);
-    navbarButtons.create($(button), menu);
+function createMenuButton(buttonHolder, menuElem) {
+    var btn = uiCreator.createMenuButton();
+    buttonHolder.html($(btn));
+    var btnEvenets = new navbarButtons($(btn));
 }
 
 function PageWithDateFilters() {
     var dateMenu = $('.faxes-content').find('.date-selector');
     var mainContent = $('.faxes-content').children('.main-content');
-    var button = $('.faxes-content').find('.show-menu');
+    var buttonDiv = $('.faxes-content').find('.menu-button-holder');
 
     function createMenuElems(filter) {
         dateMenu.html(uiCreator.createMenuDateFilters(filter.getDateFilters()));
@@ -51,7 +43,7 @@ function PageWithDateFilters() {
         createRecentButtonHandler(filter);
         createMonthYearButtonHandlers();
         createLiDateHandlers(filter);
-        createMenuButton(button, dateMenu);
+        createMenuButton(buttonDiv, dateMenu);
     }
 
     function createRecentButtonHandler(filter) {
@@ -85,6 +77,7 @@ function PageWithDateFilters() {
         $.each(days, function (index, value) {
             var elem = $(value);
             elem.on('click', function () {
+                console.log('date click');
                 mainContent.hide();
                 mainContent.html(uiCreator.createFileWrappers(filter.getFilesFromDay(
                     elem.attr('data-day'))));
@@ -109,11 +102,11 @@ function PageWithDateFilters() {
 function PageWithOrderSelection() {
     var orderMenu = $('.oldFaxes-content').find('.category-selector');
     var mainContent = $('.oldFaxes-content').children('.main-content');
-    var button = $('.oldFaxes-content').find('.show-menu');
+    var buttonDiv = $('.oldFaxes-content').find('.menu-button-holder');
 
     function createMenuElems(filter) {
         orderMenu.html(uiCreator.createOrderSelection(filter.getOrderNames()));
-        createMenuButton(button, orderMenu);
+        createMenuButton(buttonDiv, orderMenu);
     }
 
     function hideSpansFromButtons() {

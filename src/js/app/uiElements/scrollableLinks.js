@@ -5,7 +5,7 @@ var animations = require('../utils/animations');
 
 var scrollableLinks = $('a[data-scrollable-link]');
 
-function ScrollableLinks() {
+module.exports = (function ScrollableLinks() {
     var links = scrollableLinks;
     var scrollTime = settings.scrollTime || 1000;
 
@@ -28,6 +28,4 @@ function ScrollableLinks() {
             addClickEventsForLinks();
         }
     };
-}
-
-module.exports = new ScrollableLinks();
+})();

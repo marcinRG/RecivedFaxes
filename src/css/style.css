@@ -286,7 +286,7 @@ body {
 .menu button {
   cursor: pointer;
 }
-.menu .show-menu {
+.menu .show-menu-btn {
   box-sizing: border-box;
   display: block;
   width: 100%;
@@ -297,7 +297,7 @@ body {
   padding: 1.2em;
   outline: none;
 }
-.menu .show-menu span {
+.menu .show-menu-btn span {
   display: inline-block;
 }
 .date-selector,

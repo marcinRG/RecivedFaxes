@@ -8,6 +8,13 @@ function createButton(txt) {
     return button;
 }
 
+function createMenuButton() {
+    var button = document.createElement('button');
+    button.classList.add('show-menu-btn');
+    addAdditonalSpan(button);
+    return button;
+}
+
 function addAdditonalSpan(button) {
     var span = document.createElement('span');
     span.innerHTML = '&#9660;';
@@ -94,6 +101,7 @@ function createFileWrappers(filePropertiesArray) {
 }
 
 module.exports = {
+    createMenuButton: createMenuButton,
     createMenuDateFilters: createMenuDatesFilters,
     createOrderSelection: createOrderSelection,
     createFileWrappers: createFileWrappers
