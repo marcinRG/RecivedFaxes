@@ -8,17 +8,11 @@ function createButton(txt) {
     return button;
 }
 
-function createMenuButton() {
-    var button = document.createElement('button');
-    button.classList.add('show-menu-btn');
-    addAdditonalSpan(button);
-    return button;
-}
-
 function addAdditonalSpan(button) {
     var span = document.createElement('span');
     span.innerHTML = '&#9660;';
     button.appendChild(span);
+    return span;
 }
 
 function createlistDateElem(value) {
@@ -101,7 +95,7 @@ function createFileWrappers(filePropertiesArray) {
 }
 
 module.exports = {
-    createMenuButton: createMenuButton,
+    addArrow: addAdditonalSpan,
     createMenuDateFilters: createMenuDatesFilters,
     createOrderSelection: createOrderSelection,
     createFileWrappers: createFileWrappers

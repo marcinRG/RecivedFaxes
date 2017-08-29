@@ -1,5 +1,4 @@
 'use strict';
-
 var $ = require('jquery');
 var pages = require('./pages')();
 

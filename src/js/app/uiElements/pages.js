@@ -1,6 +1,7 @@
 'use strict';
 var $ = require('jquery');
-var pageContentCreator = require('./pageContentCreator');
+var pageWithDateFilters = require('./pageWithDateFilters');
+var pageWithOrderFilters = require('./pageWithOrderFilters');
 
 var pages = {
     faxes: $('.faxes-content'),
@@ -26,9 +27,9 @@ function Pages() {
     function createContentPage(pageName) {
         switch (pageName) {
             case 'faxes':
-                return pageContentCreator.createFilesWithDateFiltersPage();
+                return pageWithDateFilters.createFilesWithDateFiltersPage();
             case 'oldFaxes':
-                return pageContentCreator.createFileswithOrderSelectionPage();
+                return pageWithOrderFilters.createFileswithOrderSelectionPage();
             case 'settings':
                 return;
         }

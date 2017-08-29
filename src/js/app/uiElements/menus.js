@@ -3,6 +3,7 @@
 var $ = require('jquery');
 var animations = require('../utils/animations');
 var pageSettings = require('../settings/app.settings').website;
+var uiCreator = require('./uiElements');
 
 var menus = $('*[data-menu]');
 var win = $(window);
@@ -12,7 +13,7 @@ var slideTime = pageSettings.menuSlideTime || 1000;
 function Menu(menuElem) {
     var menuItems = $(menuElem).find('*[data-menu-items]');
     var menuButton = $(menuElem).find('*[data-menu-button]');
-    var arrow = $(menuButton).children('span');
+    var arrow = $(uiCreator.addArrow(menuButton[0]));
     var hidden = false;
     var size = win.outerWidth();
 
@@ -36,11 +37,13 @@ function Menu(menuElem) {
         if (isSmallSize(size) && !(isSmallSize(currentSize))) {
             if (hidden) {
                 hidden = false;
+                menuButton.hide();
                 toggleMenu(hidden);
             }
         }
         if (!isSmallSize(size) && (isSmallSize(currentSize))) {
             hidden = true;
+            menuButton.show();
             toggleMenu(hidden);
         }
         size = currentSize;
@@ -70,13 +73,14 @@ function Menu(menuElem) {
         addClickHandler();
         if (isSmallSize(size)) {
             hidden = true;
+            menuButton.show();
             toggleMenu(hidden);
         }
         else {
+            menuButton.hide();
             animations.rotateToDown(arrow);
         }
     }
-
     intialize();
 }
 
@@ -87,5 +91,5 @@ function createMenus() {
 }
 
 module.exports = {
-    test: createMenus
+    createMenus: createMenus
 };

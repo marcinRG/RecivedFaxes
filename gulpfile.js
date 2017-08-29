@@ -7,8 +7,6 @@ var del = require('del');
 
 var settings = require('./gulp.settings/settings.gulp');
 
-//kompilacja css z less
-
 //lintowanie less
 gulp.task('lint-less', ['clean-styles'], function () {
     return gulp.src(settings.app.lessStyles).pipe($.lesshint({
@@ -18,6 +16,7 @@ gulp.task('lint-less', ['clean-styles'], function () {
         .pipe($.lesshint.failOnError());
 });
 
+//kompilacja css z less
 gulp.task('less-compile', ['lint-less'], function () {
     msg('Kompilacja plików less -> css');
     return gulp.src(settings.app.lessFile)
@@ -106,39 +105,29 @@ gulp.task('build-prepare', ['build-dev'], function (done) {
     clean(files, done);
 });
 
-gulp.task('build-create', ['copyToBuild-css'], function () {
+gulp.task('build-create', ['dist-optimize', 'copyToBuild-images', 'copyToBuild-fonts'], function () {
 });
 
-gulp.task('copyToBuild-css', ['copyToBuild-fonts'], function () {
-    msg('Kopiowanie arkusza stylów');
-    return gulp.src(settings.app.cssFile)
-        .pipe($.plumber())
-        .pipe($.csso())
-        .pipe(gulp.dest(settings.build.cssPath));
-});
-
-gulp.task('copyToBuild-js', ['build-prepare'], function () {
-    msg('Kopiowanie skryptu');
-    return gulp.src(settings.app.compiledJs)
-        .pipe($.uglify())
-        .pipe(gulp.dest(settings.build.jsPath));
-});
-
-gulp.task('copyToBuild-fonts', ['copyToBuild-images'], function () {
+gulp.task('copyToBuild-fonts', function () {
     msg('Kopiowanie fontów');
     return gulp.src(settings.app.fontsSrc)
         .pipe(gulp.dest(settings.build.fontsPath));
 });
 
-gulp.task('copyToBuild-images', ['copyToBuild-mainPage'], function () {
+gulp.task('copyToBuild-images', function () {
     msg('Kopiowanie obrazów');
     return gulp.src(settings.app.imageSrc)
         .pipe(gulp.dest(settings.build.imagesPath));
 });
 
-gulp.task('copyToBuild-mainPage', ['copyToBuild-js'], function () {
-    msg('Kopiowanie index.html');
+gulp.task('dist-optimize', function () {
+    msg('Poczatek');
+    var cleanCss = require('gulp-clean-css');
     return gulp.src(settings.app.index)
+        .pipe($.plumber())
+        .pipe($.useref())
+        .pipe($.if('*.js', $.uglify()))
+        .pipe($.if('*.css', cleanCss()))
         .pipe(gulp.dest(settings.build.path));
 });
 

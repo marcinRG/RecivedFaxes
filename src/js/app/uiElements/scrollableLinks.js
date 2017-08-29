@@ -2,10 +2,9 @@
 var $ = require('jquery');
 var settings = require('../settings/app.settings').website;
 var animations = require('../utils/animations');
-
 var scrollableLinks = $('a[data-scrollable-link]');
 
-module.exports = (function ScrollableLinks() {
+function ScrollableLinks() {
     var links = scrollableLinks;
     var scrollTime = settings.scrollTime || 1000;
 
@@ -28,4 +27,9 @@ module.exports = (function ScrollableLinks() {
             addClickEventsForLinks();
         }
     };
-})();
+}
+
+var scrollabeLinks = new ScrollableLinks();
+module.exports = {
+    run: scrollabeLinks.run
+};
